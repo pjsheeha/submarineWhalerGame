@@ -9,57 +9,86 @@ public class EcosystemManagement : MonoBehaviour
     float healFactor = 1.07f;
     float growthRate = 0.708f;
 
+    public GameObject thirdOrderInstance;
+    public GameObject secondOrderInstance;
+    public GameObject firstOrderInstance;
+    public GameObject primaryProducerInstance;
+    public GameObject whalePoop;
+
     GameObject[] thirdOrderConsumers;
     GameObject[] secondOrderConsumers;
     GameObject[] firstOrderConsumers;
     GameObject[] primaryProducers;
-    GameObject[] whalePoop;
+    GameObject[] whalePoops;
 
-    float thirdOrderPopulation = 1;
-    float secondOrderPopulation = 1;
-    float firstOrderPopulation = 1;
-    float primaryProducerPopulation = 1;
+    int maxThirdOrderPopulation = 3;
+    int maxSecondOrderPopulation = 9; //*3
+    int maxFirstOrderPopulation = 27; //*3
+    int maxPrimaryProducerPopulation = 81; //*3
+    int maxWhalePoopPopulation = 3;
 
-    int howManyThirdOrderConsumers = 0;
-    int howManySecondOrderConsumers = 0;
-    int howManyFirstOrderConsumers = 0;
-    int howManyPrimaryProducers = 0;
+    int thirdOrderPopulation, secondOrderPopulation, firstOrderPopulation, primaryProducerPopulation, whalePoopPopulation;
+    int previousThirdOrderPopulation, previousSecondOrderPopulation, previousFirstOrderPopulation, previousPrimaryProducerPopulation, previousWhalePoopPopulation;
 
     // Start is called before the first frame update
     void Start()
     {
-        howManyThirdOrderConsumers = 5;
-        howManySecondOrderConsumers = howManyThirdOrderConsumers * 10;
-        howManyFirstOrderConsumers = howManySecondOrderConsumers * 5;
-        howManyPrimaryProducers = howManyFirstOrderConsumers * 20;
+        thirdOrderPopulation = maxThirdOrderPopulation;
+        secondOrderPopulation = maxSecondOrderPopulation;
+        firstOrderPopulation = maxFirstOrderPopulation;
+        primaryProducerPopulation = maxPrimaryProducerPopulation;
+        whalePoopPopulation = maxWhalePoopPopulation;
+
         ecoCreate();
     }
 
-// Update is called once per frame
-void Update()
-{
+    // Update is called once per frame
+    void Update()
+    {
 
-}
+    }
 
-void ecoCreate()
-{
-    for (int i = 0; i < howManyThirdOrderConsumers; i++)
+    void ecoCreate()
     {
-        thirdOrderConsumers[i] = Instantiate(objWhale);
-        // also poop
-        whalePoop[i] = Instantiate(objWhalePoop);
+        /// Instantiate all elements on the ecosystem    
+        for (int i = 0; i < thirdOrderPopulation; i++)
+        {
+            thirdOrderConsumers[i] = Instantiate(thirdOrderInstance, transform.position, transform.rotation);
+            // also poop
+            whalePoops[i] = Instantiate(whalePoop, transform.position, transform.rotation);
+        }
+        for (int i = 0; i < secondOrderPopulation; i++)
+        {
+            secondOrderConsumers[i] = Instantiate(secondOrderInstance, transform.position, transform.rotation);
+        }
+        for (int i = 0; i < firstOrderPopulation; i++)
+        {
+            firstOrderConsumers[i] = Instantiate(firstOrderInstance, transform.position, transform.rotation);
+        }
+        for (int i = 0; i < primaryProducerPopulation; i++)
+        {
+            primaryProducers[i] = Instantiate(primaryProducerInstance, transform.position, transform.rotation);
+        }
     }
-    for (int i = 0; i < howManySecondOrderConsumers; i++)
+
+    // An organism/poop will call this to request the sweet release of death
+    void removeOrganism( GameObject callerId )
     {
-        secondOrderConsumers[i] = Instantiate(objFish);
+        /// Find where in the array caller id is and eliminate it
     }
-    for (int i = 0; i < howManyFirstOrderConsumers; i++)
+
+    void dayOver()
     {
-        firstOrderConsumers[i] = Instantiate(objKrill);
+        /// When the day is over the ecosystem must figure out which organisms need to go.
+
+        //yesterdayData = todayData;
+        previousThirdOrderPopulation = thirdOrderPopulation;
+        previousSecondOrderPopulation = secondOrderPopulation;
+        previousFirstOrderPopulation = firstOrderPopulation;
+        previousPrimaryProducerPopulation = primaryProducerPopulation;
+        previousWhalePoopPopulation = whalePoopPopulation;
+
+        // Now we can modify the information we copied into previous*
     }
-    for (int i = 0; i < howManyFirstOrderConsumers; i++)
-    {
-        firstOrderConsumers[i] = Instantiate(objKrill;
-    }
-}
+
 }
