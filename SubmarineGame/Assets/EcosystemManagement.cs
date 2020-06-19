@@ -1,13 +1,18 @@
 ﻿using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
 
 public class EcosystemManagement : MonoBehaviour
 {
     int day = 0;
+    int globalWarmth = 0;
+    public float timerDay = 0f;
     float healFactor = 1.07f;
     float growthRate = 0.708f;
+    bool dayStarted = false;
+    public float dayLengthSeconds = 300f;
 
     public GameObject thirdOrderInstance;
     public GameObject secondOrderInstance;
@@ -40,12 +45,27 @@ public class EcosystemManagement : MonoBehaviour
         previousWhalePoopPopulation = whalePoopPopulation = maxWhalePoopPopulation;
 
         ecoCreate();
+        dayStart();
     }
 
     // Update is called once per frame
     void Update()
     {
+        if(dayStarted)
+            timerDay -= Time.deltaTime;
 
+        if ((timerDay <= 0) && dayStarted)
+        {
+            dayStarted = false;
+            dayOver();
+        }
+    }
+
+    void dayStart()
+    {
+        day++;
+        dayStarted = true;
+        timerDay = dayLengthSeconds;
     }
 
     void ecoCreate()
