@@ -70,7 +70,7 @@ public class EcosystemManagement : MonoBehaviour
         if (checkToEndDay)
         {
             checkToEndDay = false;
-            timerDay = 0.1;
+            timerDay = 0.1f;
         }
 
         if(checkToKillWhale)
