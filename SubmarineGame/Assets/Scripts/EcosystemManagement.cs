@@ -142,7 +142,7 @@ public class EcosystemManagement : MonoBehaviour
         removeCallerIdFromList(callerId, reason);
 
         // The organism has being edging for death. Now the ecosystemManager will giveth
-        callerId.GetComponent<insertcodenamehere>().Die();
+        //callerId.GetComponent<insertcodenamehere>().Die();
     }
 
     /// Find where in the array caller id is, eliminate it
@@ -287,7 +287,7 @@ public class EcosystemManagement : MonoBehaviour
             int index = 0;
             while (feed > 0)
             {
-                whales[index].GetComponent<insertcodenamehere>().addTargetHomework();
+                //whales[index].GetComponent<insertcodenamehere>().addTargetHomework();
                 index++;
                 index = index % whales.Count;
                 feed--;
@@ -304,7 +304,7 @@ public class EcosystemManagement : MonoBehaviour
             int index = 0;
             while (feed > 0)
             {
-                fishes[index].GetComponent<insertcodenamehere>().addTargetHomework();
+                //fishes[index].GetComponent<insertcodenamehere>().addTargetHomework();
                 index++;
                 index = index % fishes.Count;
                 feed--;
@@ -322,7 +322,7 @@ public class EcosystemManagement : MonoBehaviour
             int index = 0;
             while (feed > 0)
             {
-                krills[index].GetComponent<insertcodenamehere>().addTargetHomework();
+                //krills[index].GetComponent<insertcodenamehere>().addTargetHomework();
                 index++;
                 index = index % krills.Count;
                 feed--;
@@ -339,7 +339,7 @@ public class EcosystemManagement : MonoBehaviour
             int index = 0;
             while (feed > 0)
             {
-                planktons[index].GetComponent<insertcodenamehere>().addTargetHomework();
+                //planktons[index].GetComponent<insertcodenamehere>().addTargetHomework();
                 index++;
                 index = index % planktons.Count;
                 feed--;
