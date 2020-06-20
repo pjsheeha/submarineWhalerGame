@@ -9,10 +9,10 @@ public class planktoncode : MonoBehaviour
     {
         if(coll.gameObject.tag == "whale")
         {
-            if(GameObject.Find("Whale").GetComponent<FollowBehavior>().behavior == 1)
+            /*if(GameObject.Find("Whale").GetComponent<FollowBehavior>().behavior == 1)
             {
                 //Destroy(gameObject);
-            }
+            }*/
         }
     }
 }

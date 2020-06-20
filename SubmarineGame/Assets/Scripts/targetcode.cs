@@ -20,10 +20,10 @@ public class targetcode : MonoBehaviour
     {
         if(coll.gameObject.tag == "whale")
         {
-            if(GameObject.Find("Whale").GetComponent<FollowBehavior>().behavior == 2)
+            /*if(GameObject.Find("Whale").GetComponent<FollowBehavior>().behavior == 2)
             {
                 //Destroy(gameObject);
-            }
+            }*/
         }
         else if(coll.gameObject.tag == "Plankton")
         {
