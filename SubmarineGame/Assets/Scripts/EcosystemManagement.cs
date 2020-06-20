@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
 using UnityEngine;
+using UnityEngine.Timeline;
 
 public class EcosystemManagement : MonoBehaviour
 {
@@ -12,36 +13,46 @@ public class EcosystemManagement : MonoBehaviour
     float healFactor = 1.07f;
     float growthRate = 0.708f;
     bool dayStarted = false;
+    bool canSignalWhales = false;
+    bool canSignalFish = false;
+    bool canSignalKrill = false;
+    bool canSignalPlankton = false;
     public float dayLengthSeconds = 300f;
 
-    public GameObject thirdOrderInstance;
-    public GameObject secondOrderInstance;
-    public GameObject firstOrderInstance;
-    public GameObject primaryProducerInstance;
-    public GameObject whalePoop;
+    public GameObject WhaleInstance;
+    public GameObject FishInstance;
+    public GameObject KrillInstance;
+    public GameObject PlanktonInstance;
+    public GameObject WhalePoopInstance;
 
-    GameObject[] thirdOrderConsumers;
-    GameObject[] secondOrderConsumers;
-    GameObject[] firstOrderConsumers;
-    GameObject[] primaryProducers;
-    GameObject[] whalePoops;
+    List<GameObject> whales = new List<GameObject>();
+    List<GameObject> fishes = new List<GameObject>();
+    List<GameObject> krills = new List<GameObject>();
+    List<GameObject> planktons = new List<GameObject>();
+    List<GameObject> whalePoops = new List<GameObject>();
 
-    int maxThirdOrderPopulation = 3;
-    int maxSecondOrderPopulation = 9; //*3
-    int maxFirstOrderPopulation = 27; //*3
-    int maxPrimaryProducerPopulation = 81; //*3
+    int maxWhalePopulation = 3;
+    int maxFishPopulation = 9; //*3
+    int maxKrillPopulation = 27; //*3
+    int maxPlanktonPopulation = 81; //*3
     int maxWhalePoopPopulation = 3;
 
-    int thirdOrderPopulation, secondOrderPopulation, firstOrderPopulation, primaryProducerPopulation, whalePoopPopulation;
-    int previousThirdOrderPopulation, previousSecondOrderPopulation, previousFirstOrderPopulation, previousPrimaryProducerPopulation, previousWhalePoopPopulation;
+    int whalePopulation, fishPopulation, krillPopulation, planktonPopulation, whalePoopPopulation;
+    int previousWhalePopulation, previousFishPopulation, previousKrillPopulation, previousPlanktonPopulation, previousWhalePoopPopulation;
+
+    int fishThatMustBeEaten = 0;
+    int krillThatMustBeEaten = 0;
+    int planktonThatMustBeEaten = 0;
+    int whalePoopThatMustBeEaten = 0;
 
     // Start is called before the first frame update
     void Start()
     {
-        previousThirdOrderPopulation = thirdOrderPopulation = maxThirdOrderPopulation;
-        previousSecondOrderPopulation = secondOrderPopulation = maxSecondOrderPopulation;
-        previousFirstOrderPopulation = firstOrderPopulation = maxFirstOrderPopulation;
-        previousPrimaryProducerPopulation = primaryProducerPopulation = maxPrimaryProducerPopulation;
+
+        previousWhalePopulation = whalePopulation = maxWhalePopulation;
+        previousFishPopulation = fishPopulation = maxFishPopulation;
+        previousKrillPopulation = krillPopulation = maxKrillPopulation;
+        previousPlanktonPopulation = planktonPopulation = maxPlanktonPopulation;
         previousWhalePoopPopulation = whalePoopPopulation = maxWhalePoopPopulation;
 
         ecoCreate();
@@ -52,13 +63,35 @@ public class EcosystemManagement : MonoBehaviour
     void Update()
     {
 
-        if(dayStarted)
+        if (dayStarted)
             timerDay -= Time.deltaTime;
 
         if ((timerDay <= 0) && dayStarted)
         {
+            timerDay = 0;
             dayStarted = false;
             dayOver();
+        }
+
+        if ((timerDay < dayLengthSeconds) && canSignalWhales)
+        {
+            canSignalWhales = false;
+            signalWhales(fishThatMustBeEaten);
+        }
+        if ((timerDay < dayLengthSeconds * 3 / 4) && canSignalFish)
+        {
+            canSignalFish = false;
+            signalFish(krillThatMustBeEaten);
+        }
+        if ((timerDay < dayLengthSeconds * 1 / 2) && canSignalKrill)
+        {
+            canSignalKrill = false;
+            signalKrill(planktonThatMustBeEaten);
+        }
+        if ((timerDay < dayLengthSeconds * 1 / 4) && canSignalPlankton)
+        {
+            canSignalPlankton = false;
+            signalPlankton(whalePoopThatMustBeEaten);
         }
     }
 
@@ -66,122 +99,252 @@ public class EcosystemManagement : MonoBehaviour
     {
         day++;
         dayStarted = true;
+        canSignalWhales = true;
+        canSignalFish = true;
+        canSignalKrill = true;
+        canSignalPlankton = true;
         timerDay = dayLengthSeconds;
     }
 
     void ecoCreate()
     {
         /// Instantiate all elements on the ecosystem    
-        for (int i = 0; i < thirdOrderPopulation; i++)
+        for (int i = 0; i < whalePopulation; i++)
         {
-            thirdOrderConsumers[i] = Instantiate(thirdOrderInstance, transform.position, transform.rotation);
+            whales.Add(Instantiate(WhaleInstance, transform.position, transform.rotation));
             // also poop
-            whalePoops[i] = Instantiate(whalePoop, transform.position, transform.rotation);
+            whalePoops.Add(Instantiate(WhalePoopInstance, transform.position, transform.rotation));
         }
-        for (int i = 0; i < secondOrderPopulation; i++)
+        for (int i = 0; i < fishPopulation; i++)
         {
-            secondOrderConsumers[i] = Instantiate(secondOrderInstance, transform.position, transform.rotation);
+            fishes.Add(Instantiate(FishInstance, transform.position, transform.rotation));
         }
-        for (int i = 0; i < firstOrderPopulation; i++)
+        for (int i = 0; i < krillPopulation; i++)
         {
-            firstOrderConsumers[i] = Instantiate(firstOrderInstance, transform.position, transform.rotation);
+            krills.Add(Instantiate(KrillInstance, transform.position, transform.rotation));
         }
-        for (int i = 0; i < primaryProducerPopulation; i++)
+        for (int i = 0; i < planktonPopulation; i++)
         {
-            primaryProducers[i] = Instantiate(primaryProducerInstance, transform.position, transform.rotation);
+            planktons.Add(Instantiate(PlanktonInstance, transform.position, transform.rotation));
         }
     }
 
-    // An organism/poop will call this to request the sweet release of death
-    void removeOrganism( GameObject callerId )
+    /**
+     * callerId: The organism/poop that requests the sweet release of death
+     * reason:
+     * 0: unknown
+     * 1: hunted
+     * 2: eaten
+     */
+    void removeOrganism(GameObject callerId, int reason)
     {
-        /// Find where in the array caller id is, eliminate it
-        /// and adjust array order and size
+
+        removeCallerIdFromList(callerId, reason);
+
+        // The organism has being edging for death. Now the ecosystemManager will giveth
+        callerId.GetComponent<insertcodenamehere>().Die();
+    }
+
+    /// Find where in the array caller id is, eliminate it
+    int removeCallerIdFromList(GameObject callerId, int reason)
+    {
+        int ret = 0;
+        if (whales.Contains(callerId))
+        {
+            whales.Remove(callerId);
+            if (reason == 1)
+                whalePopulation--;
+        }
+        else if (fishes.Contains(callerId))
+        {
+            fishes.Remove(callerId);
+            if (reason == 1)
+                fishPopulation--;
+            if (reason == 2)
+            {
+                fishThatMustBeEaten--;
+                fishPopulation--;
+            }
+        }
+        else if (krills.Contains(callerId))
+        {
+            krills.Remove(callerId);
+            if (reason == 1)
+                krillPopulation--;
+            if (reason == 2)
+            {
+                krillThatMustBeEaten--;
+                krillPopulation--;
+            }
+        }
+        else if (planktons.Contains(callerId))
+        {
+            planktons.Remove(callerId);
+            if (reason == 1)
+                planktonPopulation--;
+            if (reason == 2)
+            {
+                planktonThatMustBeEaten--;
+                planktonPopulation--;
+            }
+        }
+        else if (whalePoops.Contains(callerId))
+        {
+            whalePoops.Remove(callerId);
+            if (reason == 1)
+                whalePoopPopulation--;
+            if (reason == 2)
+            {
+                whalePoopThatMustBeEaten--;
+                whalePoopPopulation--;
+            }
+        }
+        else
+        {
+            ret = 1; //not found
+        }
+        return ret;
+    }
+
+    /**
+     * This is called in case organisms that MustBeEaten where not in fact eaten
+     */
+    void removeDeathMarkedOrganisms()
+    {
+        while (fishThatMustBeEaten > 0)
+        {
+            removeOrganism(fishes[0], 2);
+        }
+        while (krillThatMustBeEaten > 0)
+        {
+            removeOrganism(krills[0], 2);
+        }
+        while (planktonThatMustBeEaten > 0)
+        {
+            removeOrganism(planktons[0], 2);
+        }
+        while (whalePoopThatMustBeEaten > 0)
+        {
+            removeOrganism(whalePoops[0], 2);
+        }
     }
 
     void dayOver()
     {
+        removeDeathMarkedOrganisms();
         /// When the day is over the ecosystem must figure out which organisms need to go.
         /// We assume that the current populations were already updated in removeOrganism(). 
         /// Right now we have the old information stored in previous.
 
-        float thirdOrderPercentage = (float)thirdOrderPopulation / (float)maxThirdOrderPopulation;
-        float secondOrderPercentage = (float)secondOrderPopulation / (float)maxSecondOrderPopulation;
-        float firstOrderPercentage = (float)firstOrderPopulation / (float)maxFirstOrderPopulation;
-        float primaryProducerPercentage = (float)primaryProducerPopulation / (float)maxPrimaryProducerPopulation;
+        float whalePercentage = (float)whalePopulation / (float)maxWhalePopulation;
+        float fishPercentage = (float)fishPopulation / (float)maxFishPopulation;
+        float krillPercentage = (float)krillPopulation / (float)maxKrillPopulation;
+        float planktonPercentage = (float)planktonPopulation / (float)maxPlanktonPopulation;
         float whalePoopPercentage = (float)whalePoopPopulation / (float)maxWhalePoopPopulation;
 
-        float newThirdOrderPercentage = thirdOrderPercentage - ((1 - secondOrderPercentage) * growthRate);
-        float newSecondOrderPercentage = secondOrderPercentage - ((1 - firstOrderPercentage) * growthRate);
-        float newFirstOrderPercentage = firstOrderPercentage - ((1 - primaryProducerPercentage) * growthRate);
-        float newPrimaryProducerPercentage = primaryProducerPercentage - ((1 - whalePoopPercentage) * growthRate);
-        float newWhalePoopPercentage = thirdOrderPercentage;
+        float newWhalePercentage = whalePercentage - ((1 - fishPercentage) * growthRate);
+        float newFishPercentage = fishPercentage - ((1 - krillPercentage) * growthRate);
+        float newKrillPercentage = krillPercentage - ((1 - planktonPercentage) * growthRate);
+        float newPlanktonPercentage = planktonPercentage - ((1 - whalePoopPercentage) * growthRate);
+        float newWhalePoopPercentage = whalePercentage;
 
         // Ok, now that we've fiigured out the percentage we proceed to convert this values to ceiled populations
-        thirdOrderPopulation = (int)Mathf.Ceil(newThirdOrderPercentage * maxThirdOrderPopulation);
-        secondOrderPopulation = (int)Mathf.Ceil(newSecondOrderPercentage * maxSecondOrderPopulation);
-        firstOrderPopulation = (int)Mathf.Ceil(newFirstOrderPercentage * maxFirstOrderPopulation);
-        primaryProducerPopulation = (int)Mathf.Ceil(newPrimaryProducerPercentage * maxPrimaryProducerPopulation);
+        whalePopulation = (int)Mathf.Ceil(newWhalePercentage * maxWhalePopulation);
+        fishPopulation = (int)Mathf.Ceil(newFishPercentage * maxFishPopulation);
+        krillPopulation = (int)Mathf.Ceil(newKrillPercentage * maxKrillPopulation);
+        planktonPopulation = (int)Mathf.Ceil(newPlanktonPercentage * maxPlanktonPopulation);
         whalePoopPopulation = (int)Mathf.Ceil(newWhalePoopPercentage * maxWhalePoopPopulation);
 
-        // By this part its possible for difference in whole numbers to exist previousPopulation y todayPopulation.
+        // By this part its possible for difference in whole numbers to exist in previousPopulation and todayPopulation.
         // We have to order our organisms what to eat tomorrow.
 
-        /// All of this must be sent to a method all of these organisms have. And the individually will have to decide hoe to deal with this eat queue.
+        /// All of this must be sent to a method all of these organisms have. And they individually will have to decide how to deal with this eat queue.
+        // This will not be decided here, but in the update method. What we do here is decide how many organisms will die
         //if(less whales) throw corpse into beach
-        if ((previousThirdOrderPopulation - thirdOrderPopulation) > 0)
-        {
-            ///
-        }
-        //if(less fish) order whales in my whale array to eat this amount of fish
-        if ((previousSecondOrderPopulation - secondOrderPopulation) > 0)
-        {
-            int feed = previousSecondOrderPopulation - secondOrderPopulation;
-            int index = 0;
-            while (feed > 0)
-            {
-                firstOrderConsumers[index].GetComponent<homeworkgiver>().addTargetHomework();
-                index++;
-                index = index % firstOrderConsumers.Length;
-                feed--;
-            }
-        }
-        //if(less krill) order fish to eat this amount of krill
-        if ((previousFirstOrderPopulation - firstOrderPopulation) > 0)
-        {
-            int feed = previousFirstOrderPopulation - firstOrderPopulation;
-            int index = 0;
-            while (feed > 0)
-            {
-                secondOrderConsumers[index].GetComponent<homeworkgiver>().addTargetHomework();
-                index++;
-                index = index % secondOrderConsumers.Length;
-                feed--;
-            }
-        }
-        //if(less plankton) order krill to eat plankton
-        if ((previousPrimaryProducerPopulation - primaryProducerPopulation) > 0)
-        {
-            int feed = previousPrimaryProducerPopulation - primaryProducerPopulation;
-            int index = 0;
-            while (feed > 0)
-            {
-                firstOrderConsumers[index].GetComponent<homeworkgiver>().addTargetHomework();
-                index++;
-                index = index % firstOrderConsumers.Length;
-                feed--;
-            }
-        }
-        // NOT NECCESARY FOR NOW: if(less whale poop) order plankton to eat whale poop
+        /*not yet implemented*/
 
+        fishThatMustBeEaten = previousFishPopulation - fishPopulation;
+        krillThatMustBeEaten = previousKrillPopulation - krillPopulation;
+        planktonThatMustBeEaten = previousPlanktonPopulation - planktonPopulation;
+        whalePoopThatMustBeEaten = previousWhalePoopPopulation - whalePoopPopulation;
 
         // Last thing that must be done in this function
-        //yesterdayData = todayData;
-        previousThirdOrderPopulation = thirdOrderPopulation;
-        previousSecondOrderPopulation = secondOrderPopulation;
-        previousFirstOrderPopulation = firstOrderPopulation;
-        previousPrimaryProducerPopulation = primaryProducerPopulation;
+        // yesterdayData = todayData;
+        previousWhalePopulation = whalePopulation;
+        previousFishPopulation = fishPopulation;
+        previousKrillPopulation = krillPopulation;
+        previousPlanktonPopulation = planktonPopulation;
         previousWhalePoopPopulation = whalePoopPopulation;
+    }
+
+    void signalWhales(int amountToFeed)
+    {
+
+        //if(less fish) order whales in my whale array to eat this amount of fish
+        if ((amountToFeed) > 0)
+        {
+            int feed = amountToFeed;
+            int index = 0;
+            while (feed > 0)
+            {
+                whales[index].GetComponent<insertcodenamehere>().addTargetHomework();
+                index++;
+                index = index % whales.Count;
+                feed--;
+            }
+        }
+    }
+
+    void signalFish(int amountToFeed)
+    {
+        //if(less krill) order fish to eat this amount of krill
+        if ((amountToFeed) > 0)
+        {
+            int feed = amountToFeed;
+            int index = 0;
+            while (feed > 0)
+            {
+                fishes[index].GetComponent<insertcodenamehere>().addTargetHomework();
+                index++;
+                index = index % fishes.Count;
+                feed--;
+            }
+        }
+    }
+
+    void signalKrill(int amountToFeed)
+    {
+
+        //if(less plankton) order krill to eat plankton
+        if ((amountToFeed) > 0)
+        {
+            int feed = amountToFeed;
+            int index = 0;
+            while (feed > 0)
+            {
+                krills[index].GetComponent<insertcodenamehere>().addTargetHomework();
+                index++;
+                index = index % krills.Count;
+                feed--;
+            }
+        }
+    }
+
+    void signalPlankton(int amountToFeed)
+    {
+        //if(less whale poop) order plankton to eat whale poop
+        if ((amountToFeed) > 0)
+        {
+            int feed = amountToFeed;
+            int index = 0;
+            while (feed > 0)
+            {
+                planktons[index].GetComponent<insertcodenamehere>().addTargetHomework();
+                index++;
+                index = index % planktons.Count;
+                feed--;
+            }
+        }
     }
 
 }
