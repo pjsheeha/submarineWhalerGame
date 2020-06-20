@@ -19,6 +19,7 @@ namespace UnityMovementAI
 	        //CHANGE
 	        InvokeRepeating("UpdateTarget", 0f, 0.5f);
 	        iwanttoeat = 0;
+	        target = GameObject.Find("cruiser").GetComponent<MovementAIRigidbody>();
 	    }
 	    void UpdateTarget()
 	    {

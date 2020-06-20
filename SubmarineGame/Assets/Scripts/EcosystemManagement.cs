@@ -51,6 +51,7 @@ public class EcosystemManagement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
         if(dayStarted)
             timerDay -= Time.deltaTime;
 
@@ -139,7 +140,7 @@ public class EcosystemManagement : MonoBehaviour
             int index = 0;
             while (feed > 0)
             {
-                //firstOrderConsumers[index].addTargetHomework();
+                //firstOrderConsumers[index].GetComponent<insertcodenamehere>().addTargetHomework();
                 index++;
                 index = index % firstOrderConsumers.Length;
                 feed--;
@@ -152,7 +153,7 @@ public class EcosystemManagement : MonoBehaviour
             int index = 0;
             while (feed > 0)
             {
-                //secondOrderConsumers[index].addTargetHomework();
+                //secondOrderConsumers[index].GetComponent<insertcodenamehere>().addTargetHomework();
                 index++;
                 index = index % secondOrderConsumers.Length;
                 feed--;
@@ -165,7 +166,7 @@ public class EcosystemManagement : MonoBehaviour
             int index = 0;
             while (feed > 0)
             {
-                //firstOrderConsumers[index].addTargetHomework();
+                //firstOrderConsumers[index].GetComponent<insertcodenamehere>().addTargetHomework();
                 index++;
                 index = index % firstOrderConsumers.Length;
                 feed--;
