@@ -9,6 +9,8 @@ using UnityMovementAI;
 public class EcosystemManagement : MonoBehaviour
 {
     int day = 0;
+    public bool checkToEndDay = false;
+    public bool checkToKillWhale = false;
     int globalWarmth = 0;
     public float timerDay = 0f;
     float healFactor = 1.07f;
@@ -38,13 +40,15 @@ public class EcosystemManagement : MonoBehaviour
     int maxPlanktonPopulation = 81; //*3
     int maxWhalePoopPopulation = 3;
 
-    int whalePopulation, fishPopulation, krillPopulation, planktonPopulation, whalePoopPopulation;
+    public int whalePopulation, fishPopulation, krillPopulation, planktonPopulation, whalePoopPopulation;
     int previousWhalePopulation, previousFishPopulation, previousKrillPopulation, previousPlanktonPopulation, previousWhalePoopPopulation;
 
     int fishThatMustBeEaten = 0;
     int krillThatMustBeEaten = 0;
     int planktonThatMustBeEaten = 0;
     int whalePoopThatMustBeEaten = 0;
+
+
 
     // Start is called before the first frame update
     void Start()
@@ -58,11 +62,28 @@ public class EcosystemManagement : MonoBehaviour
 
         ecoCreate();
         dayStart();
+    
+    }
+
+    void debugTesting()
+    {
+        if (checkToEndDay)
+        {
+            checkToEndDay = false;
+            timerDay = 0.1;
+        }
+
+        if(checkToKillWhale)
+        {
+            checkToKillWhale = false;
+            whales[0].GetComponent<pursuewhale>().huntedByShip();
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
+        debugTesting();
 
         if (dayStarted)
             timerDay -= Time.deltaTime;
@@ -139,11 +160,7 @@ public class EcosystemManagement : MonoBehaviour
      */
     void removeOrganism(GameObject callerId, int reason)
     {
-
         removeCallerIdFromList(callerId, reason);
-
-        // The organism has being edging for death. Now the ecosystemManager will giveth
-        callerId.GetComponent<death>().Die();
     }
 
     /// Find where in the array caller id is, eliminate it
@@ -155,6 +172,7 @@ public class EcosystemManagement : MonoBehaviour
             whales.Remove(callerId);
             if (reason == 1)
                 whalePopulation--;
+            callerId.GetComponent<death>().Die();
         }
         else if (fishes.Contains(callerId))
         {
@@ -166,6 +184,7 @@ public class EcosystemManagement : MonoBehaviour
                 fishThatMustBeEaten--;
                 fishPopulation--;
             }
+            callerId.GetComponent<death>().Die();
         }
         else if (krills.Contains(callerId))
         {
@@ -177,6 +196,7 @@ public class EcosystemManagement : MonoBehaviour
                 krillThatMustBeEaten--;
                 krillPopulation--;
             }
+            callerId.GetComponent<death>().Die();
         }
         else if (planktons.Contains(callerId))
         {
@@ -188,6 +208,7 @@ public class EcosystemManagement : MonoBehaviour
                 planktonThatMustBeEaten--;
                 planktonPopulation--;
             }
+            callerId.GetComponent<death>().Die();
         }
         else if (whalePoops.Contains(callerId))
         {
@@ -199,6 +220,7 @@ public class EcosystemManagement : MonoBehaviour
                 whalePoopThatMustBeEaten--;
                 whalePoopPopulation--;
             }
+            callerId.GetComponent<death>().Die();
         }
         else
         {
@@ -288,7 +310,7 @@ public class EcosystemManagement : MonoBehaviour
             int index = 0;
             while (feed > 0)
             {
-                //whales[index].GetComponent<homeworkgiver>().addTargetHomework();
+                whales[index].GetComponent<homeworkgiver>().addTargetHomework();
                 index++;
                 index = index % whales.Count;
                 feed--;
@@ -323,7 +345,7 @@ public class EcosystemManagement : MonoBehaviour
             int index = 0;
             while (feed > 0)
             {
-                //krills[index].GetComponent<homeworkgiver>().addTargetHomework();
+                krills[index].GetComponent<homeworkgiver>().addTargetHomework();
                 index++;
                 index = index % krills.Count;
                 feed--;
@@ -340,7 +362,7 @@ public class EcosystemManagement : MonoBehaviour
             int index = 0;
             while (feed > 0)
             {
-                //planktons[index].GetComponent<homeworkgiver>().addTargetHomework();
+                planktons[index].GetComponent<homeworkgiver>().addTargetHomework();
                 index++;
                 index = index % planktons.Count;
                 feed--;
