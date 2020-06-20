@@ -418,15 +418,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timerDay: 0
   dayLengthSeconds: 300
-  thirdOrderInstance: {fileID: 9043606122933015816, guid: 1c2b8f06148aa914aa6698046172fad7,
+  WhaleInstance: {fileID: 8726915480290043189, guid: 6e65992aa3988cd4eafb0d40da5e0b03,
     type: 3}
-  secondOrderInstance: {fileID: 9101486867609807710, guid: cd8718ea27e5440438446a4399f371f8,
+  FishInstance: {fileID: 8847028462159422983, guid: ed6d9aa87ae1c85448a093f9539948c0,
     type: 3}
-  firstOrderInstance: {fileID: 2653697626079824715, guid: d07404039ec6c6949bbfb7e49a77eeff,
+  KrillInstance: {fileID: 6940781339241655963, guid: 63a8b9a6496cd674fa96e007a8c48c57,
     type: 3}
-  primaryProducerInstance: {fileID: 4603642501177871245, guid: d2a83accba4daf64c8fe6df7feebfa2a,
+  PlanktonInstance: {fileID: 4603642501177871245, guid: d2a83accba4daf64c8fe6df7feebfa2a,
     type: 3}
-  whalePoop: {fileID: 1779965425088804277, guid: fe8b04d8115b42446bc42e31a9a305db,
+  WhalePoopInstance: {fileID: 1779965425088804277, guid: fe8b04d8115b42446bc42e31a9a305db,
     type: 3}
 --- !u!4 &1054137212
 Transform:

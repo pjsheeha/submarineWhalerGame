@@ -81,7 +81,14 @@ namespace UnityMovementAI
                 this.GetComponent<PursueUnit>().enabled = false;
             }
         }
-
+        public void addTargetHomework()
+        {
+           iwanttoeat = 1;
+        }
+        public void Die()
+        {
+            Debug.Log("dead");
+        }
         void FixedUpdate()
         {
             Vector3 accel = pursue.GetSteering(target);

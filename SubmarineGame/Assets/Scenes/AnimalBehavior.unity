@@ -693,8 +693,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxVelocity: 1
-  maxAcceleration: 3
-  turnSpeed: 3
+  maxAcceleration: 10
+  turnSpeed: 20
   targetRadius: 0.005
   slowRadius: 1
   timeToTarget: 0.1
@@ -1235,7 +1235,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1515258183}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fbbd2e16a92ffc84caaa31c4faad36b6, type: 3}
+  m_Script: {fileID: 11500000, guid: ad97e33683e3a894a987196e2c1d404f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!4 &1515258188
@@ -1265,7 +1265,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28a5ea66325b4b34bb7fdd2c5706ca3e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 432557038}
+  target: {fileID: 1172657304}
   range: 11
   iwanttoeat: 0
 --- !u!114 &1515258190

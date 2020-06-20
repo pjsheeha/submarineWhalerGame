@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class homeworkgiver : MonoBehaviour
+public class death : MonoBehaviour
 {
     // Start is called before the first frame update
     void Start()
@@ -15,8 +15,8 @@ public class homeworkgiver : MonoBehaviour
     {
         
     }
-    public void addTargetHomework()
+     public void Die()
     {
-    	Debug.Log("Lol");
+        Debug.Log("dead");
     }
 }
