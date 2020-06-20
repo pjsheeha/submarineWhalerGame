@@ -139,7 +139,7 @@ public class EcosystemManagement : MonoBehaviour
             int index = 0;
             while (feed > 0)
             {
-                firstOrderConsumers[index].addTargetHomework();
+                //firstOrderConsumers[index].addTargetHomework();
                 index++;
                 index = index % firstOrderConsumers.Length;
                 feed--;
@@ -152,7 +152,7 @@ public class EcosystemManagement : MonoBehaviour
             int index = 0;
             while (feed > 0)
             {
-                secondOrderConsumers[index].addTargetHomework();
+               // secondOrderConsumers[index].addTargetHomework();
                 index++;
                 index = index % secondOrderConsumers.Length;
                 feed--;
@@ -165,7 +165,7 @@ public class EcosystemManagement : MonoBehaviour
             int index = 0;
             while (feed > 0)
             {
-                firstOrderConsumers[index].addTargetHomework();
+                //firstOrderConsumers[index].addTargetHomework();
                 index++;
                 index = index % firstOrderConsumers.Length;
                 feed--;

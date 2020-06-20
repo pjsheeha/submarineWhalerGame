@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class LevelManagement : MonoBehaviour
 {
-    dayCount 
+   // dayCount 
     
     // Start is called before the first frame update
     void Start()
