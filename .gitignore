@@ -71,3 +71,8 @@ InitTestScene*.unity
 
 
 # End of https://www.toptal.com/developers/gitignore/api/unity
+SubmarineGame/Library/assetDatabase3
+SubmarineGame/Library/assetDatabase3
+SubmarineGame/Library/CurrentLayout-default.dwlt
+SubmarineGame/Library/assetDatabase3
+*.dwlt
