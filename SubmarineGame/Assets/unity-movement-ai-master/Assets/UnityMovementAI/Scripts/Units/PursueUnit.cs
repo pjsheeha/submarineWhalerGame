@@ -11,6 +11,9 @@ namespace UnityMovementAI
         //0 = idle. switch to wander. deactivate pursue.
         //1 = eat. eat krill. activate pursue. deactivate wander. 
         //2 = hotspot. track hotstpot
+        public string whatsitsprey;
+        public string whatsitshotspot;
+        public float eatnumber;
 
         SteeringBasics steeringBasics;
         Pursue pursue;
@@ -26,8 +29,8 @@ namespace UnityMovementAI
         void UpdateTarget()
         {
 
-            GameObject[] enemies2 = GameObject.FindGameObjectsWithTag("Target");
-            GameObject[] hotspots = GameObject.FindGameObjectsWithTag("Hotspot");
+            GameObject[] enemies2 = GameObject.FindGameObjectsWithTag(whatsitsprey);
+            GameObject[] hotspots = GameObject.FindGameObjectsWithTag(whatsitshotspot);
             float shortestDistance = Mathf.Infinity;
             GameObject nearestEnemy2 = null;
             GameObject nearesthotspot = null;
@@ -52,7 +55,7 @@ namespace UnityMovementAI
                 }
             }
             //SEEK TARGETS
-            if (nearestEnemy2 != null && shortestDistance <= range && iwanttoeat == 1)
+            if (nearestEnemy2 != null && shortestDistance <= range && iwanttoeat == 1 && eatnumber < 0)
             {
                 //EAT
                 target = nearestEnemy2.GetComponent<MovementAIRigidbody>();

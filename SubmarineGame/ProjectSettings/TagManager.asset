@@ -3,7 +3,14 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Hotspot
+  - whale
+  - Plankton
+  - Undefined
+  - Target
+  - Fish
+  - Shit
   layers:
   - Default
   - TransparentFX

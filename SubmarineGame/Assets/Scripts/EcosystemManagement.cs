@@ -70,7 +70,7 @@ public class EcosystemManagement : MonoBehaviour
         if (checkToEndDay)
         {
             checkToEndDay = false;
-            timerDay = 0.1;
+            timerDay = 0.1f;
         }
 
         if(checkToKillWhale)
@@ -310,7 +310,7 @@ public class EcosystemManagement : MonoBehaviour
             int index = 0;
             while (feed > 0)
             {
-                whales[index].GetComponent<homeworkgiver>().addTargetHomework();
+                //whales[index].GetComponent<homeworkgiver>().addTargetHomework();
                 index++;
                 index = index % whales.Count;
                 feed--;
@@ -345,7 +345,7 @@ public class EcosystemManagement : MonoBehaviour
             int index = 0;
             while (feed > 0)
             {
-                krills[index].GetComponent<homeworkgiver>().addTargetHomework();
+                //krills[index].GetComponent<homeworkgiver>().addTargetHomework();
                 index++;
                 index = index % krills.Count;
                 feed--;
@@ -362,7 +362,7 @@ public class EcosystemManagement : MonoBehaviour
             int index = 0;
             while (feed > 0)
             {
-                planktons[index].GetComponent<homeworkgiver>().addTargetHomework();
+                //planktons[index].GetComponent<homeworkgiver>().addTargetHomework();
                 index++;
                 index = index % planktons.Count;
                 feed--;

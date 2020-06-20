@@ -9,6 +9,7 @@ namespace UnityMovementAI
 	    public MovementAIRigidbody target;
 	    public float range = 11f;
 	    public float iwanttoeat; 
+	    public float eatnumber;
 
 	    SteeringBasics steeringBasics;
 	    Pursue pursue;
@@ -24,7 +25,7 @@ namespace UnityMovementAI
 	    void UpdateTarget()
 	    {
 
-	        GameObject[] enemies2 = GameObject.FindGameObjectsWithTag("Target");
+	        GameObject[] enemies2 = GameObject.FindGameObjectsWithTag("Fish");
 	        float shortestDistance = Mathf.Infinity;
 	        GameObject nearestEnemy2 = null;
 
@@ -40,7 +41,7 @@ namespace UnityMovementAI
 	        }
 	        //SEEK TARGETS
 	        //Attack all Fish
-	        if (nearestEnemy2 != null && shortestDistance <= range && iwanttoeat == 1)
+	        if (nearestEnemy2 != null && shortestDistance <= range && iwanttoeat == 1  && eatnumber < 0)
 	        {
 	            target = nearestEnemy2.GetComponent<MovementAIRigidbody>();
 	            //Cruise
@@ -48,6 +49,18 @@ namespace UnityMovementAI
 	        {
 	            target = GameObject.Find("cruiser").GetComponent<MovementAIRigidbody>();
 	        }
+	    }
+	    public void addTargetHomework()
+        {
+           iwanttoeat = 1;
+        }
+        public void Die()
+        {
+            Debug.Log("dead");
+        }
+	    public void huntedByShip()
+	    {
+	    	Debug.Log("Hunted Oh shuit");
 	    }
 
 	    // Update is called once per frame

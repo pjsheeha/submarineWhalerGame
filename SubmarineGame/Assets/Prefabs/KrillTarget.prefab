@@ -10,13 +10,15 @@ GameObject:
   m_Component:
   - component: {fileID: 2653697626079824709}
   - component: {fileID: 2653697626079824708}
-  - component: {fileID: 2653697626079824711}
   - component: {fileID: 2653697626079824707}
+  - component: {fileID: 2653697626079824711}
   - component: {fileID: 2653697626079824706}
   - component: {fileID: 2653697626079824705}
   - component: {fileID: 2653697626079824704}
   - component: {fileID: 2653697626079824732}
   - component: {fileID: 2653697626079824710}
+  - component: {fileID: -5816890632713852474}
+  - component: {fileID: -7318868499648551057}
   m_Layer: 0
   m_Name: KrillTarget
   m_TagString: Target
@@ -87,22 +89,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!58 &2653697626079824711
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2653697626079824715}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Radius: 5.9999995
 --- !u!50 &2653697626079824707
 Rigidbody2D:
   serializedVersion: 4
@@ -124,6 +110,22 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!58 &2653697626079824711
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2653697626079824715}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 5.9999995
 --- !u!114 &2653697626079824706
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -202,3 +204,34 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 155c89ea42e52ec4ab9d56f3a6976f3e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &-5816890632713852474
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2653697626079824715}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 28a5ea66325b4b34bb7fdd2c5706ca3e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 2653697626079824706}
+  range: 11
+  iwanttoeat: 0
+  whatsitsprey: Plankton
+  whatsitshotspot: Plankton
+  eatnumber: 0
+--- !u!114 &-7318868499648551057
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2653697626079824715}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2da78e0f74f9cf449361cf180272705, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxPrediction: 1
