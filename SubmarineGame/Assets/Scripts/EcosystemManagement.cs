@@ -29,17 +29,22 @@ public class EcosystemManagement : MonoBehaviour
     public GameObject PlanktonInstance;
     public GameObject WhalePoopInstance;
 
+
+    public GameObject whalerInstance;
+    public GameObject whalerBoatCoords1;
+    public GameObject whalerBoatCoords2;
+
     List<GameObject> whales = new List<GameObject>();
     List<GameObject> fishes = new List<GameObject>();
     List<GameObject> krills = new List<GameObject>();
     List<GameObject> planktons = new List<GameObject>();
     List<GameObject> whalePoops = new List<GameObject>();
 
-    int maxWhalePopulation = 3;
-    int maxFishPopulation = 9; //*3
-    int maxKrillPopulation = 27; //*3
-    int maxPlanktonPopulation = 81; //*3
-    int maxWhalePoopPopulation = 3;
+    public int maxWhalePopulation = 5;
+    public int maxFishPopulation = 25;
+    public int maxKrillPopulation = 50;
+    public int maxPlanktonPopulation = 100;
+    public int maxWhalePoopPopulation = 5;
 
     public int whalePopulation, fishPopulation, krillPopulation, planktonPopulation, whalePoopPopulation;
     int previousWhalePopulation, previousFishPopulation, previousKrillPopulation, previousPlanktonPopulation, previousWhalePoopPopulation;
@@ -63,7 +68,7 @@ public class EcosystemManagement : MonoBehaviour
 
         ecoCreate();
         dayStart();
-    
+
     }
 
     void debugTesting()
@@ -74,7 +79,7 @@ public class EcosystemManagement : MonoBehaviour
             timerDay = 0.1f;
         }
 
-        if(checkToKillWhale)
+        if (checkToKillWhale)
         {
             checkToKillWhale = false;
             whales[0].GetComponent<pursuewhale>().huntedByShip();
@@ -84,6 +89,18 @@ public class EcosystemManagement : MonoBehaviour
         {
             checkToStartDay = false;
             dayStart();
+        }
+    }
+
+    void spawnWhaleBoats()
+    {
+        if ((Random.Range(0f, 1f) > 0.2f) && (day > 1))
+        {
+            Instantiate(whalerInstance, whalerBoatCoords1.transform.position, transform.rotation);
+            if (Random.Range(0f, 1f) > 0.5f)
+            {
+                Instantiate(whalerInstance, whalerBoatCoords2.transform.position, transform.rotation);
+            }
         }
     }
 
@@ -116,6 +133,7 @@ public class EcosystemManagement : MonoBehaviour
         {
             canSignalKrill = false;
             signalKrill(planktonThatMustBeEaten);
+            spawnWhaleBoats();
         }
         if ((timerDay < dayLengthSeconds * 1 / 4) && canSignalPlankton)
         {
@@ -135,26 +153,34 @@ public class EcosystemManagement : MonoBehaviour
         timerDay = dayLengthSeconds;
     }
 
+    Vector3 getRandomPositionWithinOcean()
+    {
+
+
+        return new Vector3(Random.Range(-40, 40), Random.Range(-10, -50), 0);
+        //return transform.position;
+    }
+
     void ecoCreate()
     {
         /// Instantiate all elements on the ecosystem    
         for (int i = 0; i < whalePopulation; i++)
         {
-            whales.Add(Instantiate(WhaleInstance, transform.position, transform.rotation));
+            whales.Add(Instantiate(WhaleInstance, getRandomPositionWithinOcean(), transform.rotation));
             // also poop
-            whalePoops.Add(Instantiate(WhalePoopInstance, transform.position, transform.rotation));
+            whalePoops.Add(Instantiate(WhalePoopInstance, getRandomPositionWithinOcean(), transform.rotation));
         }
         for (int i = 0; i < fishPopulation; i++)
         {
-            fishes.Add(Instantiate(FishInstance, transform.position, transform.rotation));
+            fishes.Add(Instantiate(FishInstance, getRandomPositionWithinOcean(), transform.rotation));
         }
         for (int i = 0; i < krillPopulation; i++)
         {
-            krills.Add(Instantiate(KrillInstance, transform.position, transform.rotation));
+            krills.Add(Instantiate(KrillInstance, getRandomPositionWithinOcean(), transform.rotation));
         }
         for (int i = 0; i < planktonPopulation; i++)
         {
-            planktons.Add(Instantiate(PlanktonInstance, transform.position, transform.rotation));
+            planktons.Add(Instantiate(PlanktonInstance, getRandomPositionWithinOcean(), transform.rotation));
         }
     }
 
@@ -281,11 +307,11 @@ public class EcosystemManagement : MonoBehaviour
         float newWhalePoopPercentage = whalePercentage;
 
         // Ok, now that we've fiigured out the percentage we proceed to convert this values to ceiled populations
-        whalePopulation = Mathf.Max( (int)Mathf.Ceil(newWhalePercentage * maxWhalePopulation), 1);
-        fishPopulation = Mathf.Max( (int)Mathf.Ceil(newFishPercentage * maxFishPopulation), 1);
-        krillPopulation = Mathf.Max( (int)Mathf.Ceil(newKrillPercentage * maxKrillPopulation), 1);
-        planktonPopulation = Mathf.Max( (int)Mathf.Ceil(newPlanktonPercentage * maxPlanktonPopulation), 1);
-        whalePoopPopulation = Mathf.Max( (int)Mathf.Ceil(newWhalePoopPercentage * maxWhalePoopPopulation), 1);
+        whalePopulation = Mathf.Max((int)Mathf.Ceil(newWhalePercentage * maxWhalePopulation), 1);
+        fishPopulation = Mathf.Max((int)Mathf.Ceil(newFishPercentage * maxFishPopulation), 1);
+        krillPopulation = Mathf.Max((int)Mathf.Ceil(newKrillPercentage * maxKrillPopulation), 1);
+        planktonPopulation = Mathf.Max((int)Mathf.Ceil(newPlanktonPercentage * maxPlanktonPopulation), 1);
+        whalePoopPopulation = Mathf.Max((int)Mathf.Ceil(newWhalePoopPercentage * maxWhalePoopPopulation), 1);
 
         // By this part its possible for difference in whole numbers to exist in previousPopulation and todayPopulation.
         // We have to order our organisms what to eat tomorrow.
@@ -307,6 +333,8 @@ public class EcosystemManagement : MonoBehaviour
         previousKrillPopulation = krillPopulation;
         previousPlanktonPopulation = planktonPopulation;
         previousWhalePoopPopulation = whalePoopPopulation;
+
+        dayStart();
     }
 
     void signalWhales(int amountToFeed)

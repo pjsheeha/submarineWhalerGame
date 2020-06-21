@@ -10,6 +10,8 @@ namespace UnityMovementAI
 	    public float range = 11f;
 	    public float iwanttoeat; 
 	    public float eatnumber;
+	    public float minspeed;
+	    public float maxspeed;
 
 	    SteeringBasics steeringBasics;
 	    Pursue pursue;
@@ -21,6 +23,8 @@ namespace UnityMovementAI
 	        InvokeRepeating("UpdateTarget", 0f, 0.5f);
 	        iwanttoeat = 0;
 	        target = GameObject.Find("cruiser").GetComponent<MovementAIRigidbody>();
+	        this.GetComponent<SteeringBasics>().maxVelocity = Random.Range(minspeed, maxspeed);
+	        Debug.Log(this.GetComponent<SteeringBasics>().maxVelocity);
 	    }
 	    void UpdateTarget()
 	    {

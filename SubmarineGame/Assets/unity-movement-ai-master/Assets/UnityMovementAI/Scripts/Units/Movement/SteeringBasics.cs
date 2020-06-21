@@ -8,6 +8,7 @@ namespace UnityMovementAI
     {
         [Header("General")]
 
+
         public float maxVelocity = 3.5f;
 
         public float maxAcceleration = 10f;

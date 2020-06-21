@@ -47,7 +47,7 @@ MonoBehaviour:
   checkToKillWhale: 0
   checkToStartDay: 0
   timerDay: 0
-  dayLengthSeconds: 300
+  dayLengthSeconds: 90
   WhaleInstance: {fileID: 9043606122933015816, guid: 1c2b8f06148aa914aa6698046172fad7,
     type: 3}
   FishInstance: {fileID: 9101486867609807710, guid: cd8718ea27e5440438446a4399f371f8,
@@ -58,6 +58,14 @@ MonoBehaviour:
     type: 3}
   WhalePoopInstance: {fileID: 1779965425088804277, guid: fe8b04d8115b42446bc42e31a9a305db,
     type: 3}
+  whalerInstance: {fileID: 0}
+  whalerBoatCoords1: {fileID: 0}
+  whalerBoatCoords2: {fileID: 0}
+  maxWhalePopulation: 5
+  maxFishPopulation: 30
+  maxKrillPopulation: 50
+  maxPlanktonPopulation: 100
+  maxWhalePoopPopulation: 5
   whalePopulation: 0
   fishPopulation: 0
   krillPopulation: 0
