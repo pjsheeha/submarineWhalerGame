@@ -898,34 +898,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3536793555081775020, guid: da9a948f952e6114ea2008c94ff8ba8b,
         type: 3}
-      propertyPath: WhaleInstance
-      value: 
-      objectReference: {fileID: 9043606122933015816, guid: 1c2b8f06148aa914aa6698046172fad7,
-        type: 3}
-    - target: {fileID: 3536793555081775020, guid: da9a948f952e6114ea2008c94ff8ba8b,
-        type: 3}
-      propertyPath: FishInstance
-      value: 
-      objectReference: {fileID: 9101486867609807710, guid: cd8718ea27e5440438446a4399f371f8,
-        type: 3}
-    - target: {fileID: 3536793555081775020, guid: da9a948f952e6114ea2008c94ff8ba8b,
-        type: 3}
-      propertyPath: KrillInstance
-      value: 
-      objectReference: {fileID: 2653697626079824715, guid: d07404039ec6c6949bbfb7e49a77eeff,
-        type: 3}
-    - target: {fileID: 3536793555081775020, guid: da9a948f952e6114ea2008c94ff8ba8b,
-        type: 3}
-      propertyPath: PlanktonInstance
-      value: 
-      objectReference: {fileID: 4603642501177871245, guid: d2a83accba4daf64c8fe6df7feebfa2a,
-        type: 3}
-    - target: {fileID: 3536793555081775020, guid: da9a948f952e6114ea2008c94ff8ba8b,
-        type: 3}
-      propertyPath: WhalePoopInstance
-      value: 
-      objectReference: {fileID: 1779965425088804277, guid: fe8b04d8115b42446bc42e31a9a305db,
-        type: 3}
+      propertyPath: dayLengthSeconds
+      value: 90
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: da9a948f952e6114ea2008c94ff8ba8b, type: 3}
 --- !u!1 &1011168851
