@@ -57,11 +57,13 @@ namespace UnityMovementAI
         public void Die()
         {
             Debug.Log("dead");
+			
         }
 	    public void huntedByShip()
 	    {
 	    	Debug.Log("Hunted Oh shuit");
-	    }
+			GameObject.Find("EcosystemManager").GetComponent<EcosystemManagement>().removeOrganism(this.gameObject ,1);
+		}
 
 	    // Update is called once per frame
 	    void FixedUpdate()

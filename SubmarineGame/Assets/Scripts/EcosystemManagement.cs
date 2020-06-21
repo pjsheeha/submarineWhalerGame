@@ -11,6 +11,7 @@ public class EcosystemManagement : MonoBehaviour
     int day = 0;
     public bool checkToEndDay = false;
     public bool checkToKillWhale = false;
+    public bool checkToStartDay = false;
     int globalWarmth = 0;
     public float timerDay = 0f;
     float healFactor = 1.07f;
@@ -77,6 +78,12 @@ public class EcosystemManagement : MonoBehaviour
         {
             checkToKillWhale = false;
             whales[0].GetComponent<pursuewhale>().huntedByShip();
+        }
+
+        if (checkToStartDay)
+        {
+            checkToStartDay = false;
+            dayStart();
         }
     }
 
@@ -158,7 +165,7 @@ public class EcosystemManagement : MonoBehaviour
      * 1: hunted
      * 2: eaten
      */
-    void removeOrganism(GameObject callerId, int reason)
+    public void removeOrganism(GameObject callerId, int reason)
     {
         removeCallerIdFromList(callerId, reason);
     }
@@ -166,13 +173,15 @@ public class EcosystemManagement : MonoBehaviour
     /// Find where in the array caller id is, eliminate it
     int removeCallerIdFromList(GameObject callerId, int reason)
     {
+        Debug.Log("called to remove caller");
         int ret = 0;
         if (whales.Contains(callerId))
         {
             whales.Remove(callerId);
             if (reason == 1)
                 whalePopulation--;
-            callerId.GetComponent<death>().Die();
+            callerId.GetComponent<pursuewhale>().Die();
+            Debug.Log("Called die on whale");
         }
         else if (fishes.Contains(callerId))
         {
