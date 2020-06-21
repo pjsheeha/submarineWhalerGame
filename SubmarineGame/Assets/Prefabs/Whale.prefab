@@ -157,6 +157,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   value: 0
+  fixedvalue: 90
+  doesflips: 1
 --- !u!114 &-1891502115806926758
 MonoBehaviour:
   m_ObjectHideFlags: 0
