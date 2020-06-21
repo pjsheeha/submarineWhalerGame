@@ -14,6 +14,7 @@ namespace UnityMovementAI
         public string whatsitsprey;
         public string whatsitshotspot;
         public float eatnumber;
+        public bool isinwater;
 
         SteeringBasics steeringBasics;
         Pursue pursue;
@@ -83,6 +84,7 @@ namespace UnityMovementAI
                 //Deactivate Pursue
                 this.GetComponent<PursueUnit>().enabled = false;
             }
+            isinwater = false;
         }
         public void addTargetHomework()
         {
@@ -94,11 +96,10 @@ namespace UnityMovementAI
         }
         void FixedUpdate()
         {
-            Vector3 accel = pursue.GetSteering(target);
+                Vector3 accel = pursue.GetSteering(target);
             
-
-            steeringBasics.Steer(accel);
-            steeringBasics.LookWhereYoureGoing();
+                steeringBasics.Steer(accel);
+                steeringBasics.LookWhereYoureGoing();
         }
     }
 }

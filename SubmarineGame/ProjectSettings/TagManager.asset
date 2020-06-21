@@ -11,6 +11,7 @@ TagManager:
   - Target
   - Fish
   - Shit
+  - playwall
   layers:
   - Default
   - TransparentFX

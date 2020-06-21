@@ -19,6 +19,7 @@ GameObject:
   - component: {fileID: 2653697626079824710}
   - component: {fileID: -5816890632713852474}
   - component: {fileID: -7318868499648551057}
+  - component: {fileID: -4365504688997919232}
   m_Layer: 0
   m_Name: KrillTarget
   m_TagString: Target
@@ -222,6 +223,7 @@ MonoBehaviour:
   whatsitsprey: Plankton
   whatsitshotspot: Plankton
   eatnumber: 0
+  isinwater: 0
 --- !u!114 &-7318868499648551057
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -235,3 +237,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxPrediction: 1
+--- !u!114 &-4365504688997919232
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2653697626079824715}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b980a6d8292e1ec4aa387ab9083b552e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isinwater: 0

@@ -19,6 +19,7 @@ GameObject:
   - component: {fileID: -2206105625675156743}
   - component: {fileID: -8978197435277864931}
   - component: {fileID: 931487183708171124}
+  - component: {fileID: -611646412658467574}
   m_Layer: 0
   m_Name: Plankton
   m_TagString: Plankton
@@ -194,6 +195,7 @@ MonoBehaviour:
   whatsitsprey: Shit
   whatsitshotspot: Shit
   eatnumber: 0
+  isinwater: 0
 --- !u!114 &-2206105625675156743
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -245,3 +247,16 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 11.96, y: 16}
   m_EdgeRadius: 0
+--- !u!114 &-611646412658467574
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4603642501177871245}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b980a6d8292e1ec4aa387ab9083b552e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isinwater: 0

@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 7579822501707589737}
   - component: {fileID: 7442788875849651791}
   - component: {fileID: -144009161401267559}
+  - component: {fileID: -6331922522785369561}
   m_Layer: 0
   m_Name: whalepoop
   m_TagString: Shit
@@ -122,3 +123,15 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &-6331922522785369561
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1779965425088804277}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 47cd26eb8069ccf47bc73c5fe1713788, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
