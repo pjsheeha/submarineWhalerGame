@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 4826364182290586262}
   - component: {fileID: 3908284998582776918}
   - component: {fileID: 6661352689280803930}
-  - component: {fileID: 279469801075483153}
   - component: {fileID: 4428228533901799073}
   - component: {fileID: -8684940920096831647}
   - component: {fileID: -2372777033567784764}
@@ -19,6 +18,7 @@ GameObject:
   - component: {fileID: 2109591789113380341}
   - component: {fileID: -2206105625675156743}
   - component: {fileID: -8978197435277864931}
+  - component: {fileID: 931487183708171124}
   m_Layer: 0
   m_Name: Plankton
   m_TagString: Plankton
@@ -110,32 +110,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!61 &279469801075483153
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4603642501177871245}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 11.96, y: 16}
-    newSize: {x: 11.96, y: 16}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 11.96, y: 16}
-  m_EdgeRadius: 0
 --- !u!114 &4428228533901799073
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -245,3 +219,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 155c89ea42e52ec4ab9d56f3a6976f3e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!61 &931487183708171124
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4603642501177871245}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 1
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 11.96, y: 16}
+    newSize: {x: 11.96, y: 16}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 11.96, y: 16}
+  m_EdgeRadius: 0
