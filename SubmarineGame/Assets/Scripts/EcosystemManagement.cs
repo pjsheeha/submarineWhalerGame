@@ -76,7 +76,7 @@ public class EcosystemManagement : MonoBehaviour
         if (checkToEndDay)
         {
             checkToEndDay = false;
-            timerDay = 0.1f;
+            timerDay = 5f;
         }
 
         if (checkToKillWhale)
@@ -142,7 +142,7 @@ public class EcosystemManagement : MonoBehaviour
         }
     }
 
-    void dayStart()
+    public void dayStart()
     {
         day++;
         dayStarted = true;
@@ -193,24 +193,27 @@ public class EcosystemManagement : MonoBehaviour
      */
     public void removeOrganism(GameObject callerId, int reason)
     {
+        Debug.Log("An organism personally asked me to kill them");
         removeCallerIdFromList(callerId, reason);
     }
 
     /// Find where in the array caller id is, eliminate it
     int removeCallerIdFromList(GameObject callerId, int reason)
     {
-        Debug.Log("called to remove caller");
+        Debug.Log("Remove caller");
         int ret = 0;
         if (whales.Contains(callerId))
         {
+            Debug.Log("It was a whale that called to be removed");
             whales.Remove(callerId);
             if (reason == 1)
                 whalePopulation--;
             callerId.GetComponent<pursuewhale>().Die();
-            Debug.Log("Called die on whale");
+            
         }
         else if (fishes.Contains(callerId))
         {
+            Debug.Log("It was a fish that called to be removed");
             fishes.Remove(callerId);
             if (reason == 1)
                 fishPopulation--;
@@ -223,6 +226,7 @@ public class EcosystemManagement : MonoBehaviour
         }
         else if (krills.Contains(callerId))
         {
+            Debug.Log("It was a krill that called to be removed"); 
             krills.Remove(callerId);
             if (reason == 1)
                 krillPopulation--;
@@ -235,6 +239,7 @@ public class EcosystemManagement : MonoBehaviour
         }
         else if (planktons.Contains(callerId))
         {
+            Debug.Log("It was a plankton that called to be removed"); 
             planktons.Remove(callerId);
             if (reason == 1)
                 planktonPopulation--;
@@ -247,6 +252,7 @@ public class EcosystemManagement : MonoBehaviour
         }
         else if (whalePoops.Contains(callerId))
         {
+            Debug.Log("It was a poop that called to be removed");
             whalePoops.Remove(callerId);
             if (reason == 1)
                 whalePoopPopulation--;
@@ -255,10 +261,11 @@ public class EcosystemManagement : MonoBehaviour
                 whalePoopThatMustBeEaten--;
                 whalePoopPopulation--;
             }
-            callerId.GetComponent<PursueUnit>().Die();
+            callerId.GetComponent<poopbehavior>().Die();
         }
         else
         {
+            Debug.Log("ERROR: couldnt identify removed thing");
             ret = 1; //not found
         }
         return ret;
@@ -269,21 +276,26 @@ public class EcosystemManagement : MonoBehaviour
      */
     void removeDeathMarkedOrganisms()
     {
-        while (fishThatMustBeEaten > 0)
+        Debug.Log("Will start removing marked for death organism");
+        while (fishThatMustBeEaten > 0 && fishPopulation > 0)
         {
-            removeOrganism(fishes[0], 2);
+            Debug.Log("Remove fish");
+            removeCallerIdFromList(fishes[0], 2);
         }
-        while (krillThatMustBeEaten > 0)
+        while (krillThatMustBeEaten > 0 && krillPopulation > 0)
         {
-            removeOrganism(krills[0], 2);
+            Debug.Log("Remove krill");
+            removeCallerIdFromList(krills[0], 2);
         }
-        while (planktonThatMustBeEaten > 0)
+        while (planktonThatMustBeEaten > 0 && planktonPopulation > 0)
         {
-            removeOrganism(planktons[0], 2);
+            Debug.Log("Remove plankton");
+            removeCallerIdFromList(planktons[0], 2);
         }
-        while (whalePoopThatMustBeEaten > 0)
+        while (whalePoopThatMustBeEaten > 0 && whalePoopPopulation > 0) 
         {
-            removeOrganism(whalePoops[0], 2);
+            Debug.Log("Remove poop");
+            removeCallerIdFromList(whalePoops[0], 2);
         }
     }
 
@@ -392,6 +404,8 @@ public class EcosystemManagement : MonoBehaviour
 
     void signalPlankton(int amountToFeed)
     {
+        Debug.Log("SIGNALED PLANKTON??");
+        Debug.Log(amountToFeed);
         //if(less whale poop) order plankton to eat whale poop
         if ((amountToFeed) > 0)
         {
@@ -399,6 +413,7 @@ public class EcosystemManagement : MonoBehaviour
             int index = 0;
             while (feed > 0)
             {
+                Debug.Log("SIGNALED PLANKTON!!");
                 planktons[index].GetComponent<PursueUnit>().addTargetHomework();
                 index++;
                 index = index % planktons.Count;
