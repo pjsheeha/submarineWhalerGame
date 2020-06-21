@@ -32,7 +32,16 @@ public class fadeText : MonoBehaviour
         {
             if (text == true)
             {
-                textMesh.text = "+ " + score;
+                if (score != -1)
+                {
+                    textMesh.text = "+ " + score;
+                    follower.transform.GetChild(0).GetComponent<SpriteRenderer>().color = new Color(0, 0, 0, .3f);
+                }
+                else
+                {
+                    textMesh.text = "Already photographed.";
+
+                }
                 Vector3 m = Camera.main.WorldToScreenPoint(follower.transform.position);
                 transform.position = new Vector3(m.x, m.y - (alpha / 10) + (75));
                 textMesh.color = new Color32(255, 255, 255, alpha);
@@ -46,7 +55,17 @@ public class fadeText : MonoBehaviour
         {
             if (text == true)
             {
-                textMesh.text = "Not good framing";
+                if (score !=-1)
+                {
+                    textMesh.text = "Not good framing";
+                    follower.transform.GetChild(0).GetComponent<SpriteRenderer>().color = new Color(0, 0, 0, .3f);
+
+                }
+                else
+                {
+                    textMesh.text = "Already photographed.";
+
+                }
                 Vector3 m = Camera.main.WorldToScreenPoint(follower.transform.position);
                 transform.position = new Vector3(m.x, m.y - (alpha / 10) + (75));
                 textMesh.color = new Color32(255, 0, 0, alpha);
@@ -62,9 +81,11 @@ public class fadeText : MonoBehaviour
     {
         if (alpha > 0)
         {
+            
             if (text == true)
             {
                 alpha -= 3;
+
             }
             else
             {
@@ -74,6 +95,7 @@ public class fadeText : MonoBehaviour
         else
         {
             print("WTF");
+
             Destroy(this.gameObject);
         }
     }

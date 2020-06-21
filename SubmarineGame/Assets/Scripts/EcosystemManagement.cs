@@ -5,7 +5,7 @@ using System.Threading;
 using UnityEngine;
 using UnityEngine.Timeline;
 using UnityMovementAI;
-
+using UnityEngine.UI;
 public class EcosystemManagement : MonoBehaviour
 {
     int day = 0;
@@ -22,7 +22,11 @@ public class EcosystemManagement : MonoBehaviour
     bool canSignalKrill = false;
     bool canSignalPlankton = false;
     public float dayLengthSeconds = 300f;
-
+    public Color dayColor = new Color(.8f, 1, 1,.2f);
+    public Color dayColorBG = new Color(.8f, 1, 1, .2f);
+    public GameObject dayForward;
+    public GameObject daybg;
+         
     public GameObject WhaleInstance;
     public GameObject FishInstance;
     public GameObject KrillInstance;
@@ -110,37 +114,75 @@ public class EcosystemManagement : MonoBehaviour
     {
         debugTesting();
 
+
+
         if (dayStarted)
             timerDay -= Time.deltaTime;
+        dayColor = new Color(.8f, 1, 1, 0f);
+        dayColorBG = new Color(.8f, 1, 1, 1);
 
         if ((timerDay <= 0) && dayStarted)
         {
             timerDay = 0;
+            dayColor = new Color(1f, .5f, 0, 0f);
+            dayColorBG = new Color(.18f, .16f, .28f, 1);
             dayStarted = false;
             dayOver();
         }
-
+        if ((timerDay < dayLengthSeconds)){
+            dayColor = new Color(.8f, 1, 1, 0f);
+            dayColorBG = new Color(.8f, 1, 1, 1);
+        }
+        if ((timerDay < dayLengthSeconds * 3 / 4))
+        {
+            dayColor = new Color(0f, .76f, 1, 0f);
+            dayColorBG = new Color(0f, .76f, 1, 1);
+        }
+        if ((timerDay < dayLengthSeconds * 1 / 2))
+        {
+            dayColor = new Color(1f, .5f, .2f, .3f);
+            dayColorBG = new Color(1f, .5f, .2f, 1);
+        }
+        if ((timerDay < dayLengthSeconds * 1 / 4))
+        {
+            dayColorBG = new Color(.18f, .16f, .28f, .4f);
+            dayColorBG = new Color(.18f, .16f, .28f, 1);
+        }
         if ((timerDay < dayLengthSeconds) && canSignalWhales)
         {
+
+
+
             canSignalWhales = false;
             signalWhales(fishThatMustBeEaten);
         }
         if ((timerDay < dayLengthSeconds * 3 / 4) && canSignalFish)
         {
+
+
+
+
             canSignalFish = false;
             signalFish(krillThatMustBeEaten);
         }
         if ((timerDay < dayLengthSeconds * 1 / 2) && canSignalKrill)
         {
+
+
             canSignalKrill = false;
             signalKrill(planktonThatMustBeEaten);
             spawnWhaleBoats();
         }
         if ((timerDay < dayLengthSeconds * 1 / 4) && canSignalPlankton)
         {
+
+
             canSignalPlankton = false;
             signalPlankton(whalePoopThatMustBeEaten);
         }
+        dayForward.GetComponent<Image>().color = dayColor;
+        daybg.GetComponent<SpriteRenderer>().color = dayColorBG;
+        
     }
 
     public void dayStart()
@@ -152,6 +194,26 @@ public class EcosystemManagement : MonoBehaviour
         canSignalKrill = true;
         canSignalPlankton = true;
         timerDay = dayLengthSeconds;
+        for (int i = 0; i < whales.Count; i++)
+        {
+            whales[i].gameObject.GetComponent<valuecalculator>().snapped = false;
+            whales[i].gameObject.transform.GetChild(0).GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 1);
+        }
+        for (int a = 0; a < fishes.Count; a++)
+        {
+            fishes[a].gameObject.GetComponent<valuecalculator>().snapped = false;
+            fishes[a].gameObject.transform.GetChild(0).GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 1);
+        }
+        for (int q = 0; q < krills.Count; q++)
+        {
+            krills[q].gameObject.GetComponent<valuecalculator>().snapped = false;
+            krills[q].gameObject.transform.GetChild(0).GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 1);
+        }
+        for (int w= 0; w < planktons.Count; w++)
+        {
+            planktons[w].gameObject.GetComponent<valuecalculator>().snapped = false;
+            planktons[w].gameObject.transform.GetChild(0).GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 1);
+        }
     }
 
     Vector3 getRandomPositionWithinOcean()

@@ -456,7 +456,14 @@ namespace UnityMovementAI
                 }
                 else
                 {
-                    return rb2D.position;
+                    if (rb2D != null)
+                    {
+                        return rb2D.position;
+                    }
+                    else
+                    {
+                        return Vector3.zero;
+                    }
                 }
             }
         }
@@ -507,7 +514,14 @@ namespace UnityMovementAI
                 }
                 else
                 {
-                    return rb2D.velocity;
+                    if (rb2D != null)
+                    {
+                        return rb2D.velocity;
+                    }
+                    else
+                    {
+                        return Vector3.zero;
+                    }
                 }
             }
 
@@ -587,7 +601,14 @@ namespace UnityMovementAI
                 }
                 else
                 {
-                    return rb2D.transform;
+                    if (rb2D != null)
+                    {
+                        return rb2D.transform;
+                    }
+                    else
+                    {
+                        return transform;
+                    }
                 }
             }
         }

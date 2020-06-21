@@ -9,7 +9,7 @@ public class cruisemove : MonoBehaviour
     public int mult = 1;
     void Start()
     {
-        speed = 0.95f;
+        speed = 8f;
     }
 
     // Update is called once per frame

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
 public class PlayerScript : MonoBehaviour
 {
     public float maxSpeed = 40;
@@ -126,9 +127,22 @@ public class PlayerScript : MonoBehaviour
                     myT.GetComponent<fadeText>().follower = colliderClosest[i].gameObject;
                     if (moneyShot.GetComponent<valuecalculator>())
                     {
-                        myT.GetComponent<fadeText>().score = Mathf.RoundToInt(moneyShot.GetComponent<valuecalculator>().value + ((moneyShot.GetComponent<valuecalculator>().value / 100) * 10) + (-transform.position.y));
+
+                            myT.GetComponent<fadeText>().score = Mathf.RoundToInt((moneyShot.GetComponent<valuecalculator>().movementvalue + ((moneyShot.GetComponent<valuecalculator>().movementvalue / 100) * 10) + (-transform.position.y)) / 4);
+                        if (moneyShot.GetComponent<valuecalculator>().snapped == false)
+                        {
+                            money += myT.GetComponent<fadeText>().score;
+                            moneyShot.GetComponent<valuecalculator>().snapped = true;
+
+                        }
+                        else
+                        {
+                            myT.GetComponent<fadeText>().score = -1;
+                        }
+
                     }
-                        money += myT.GetComponent<fadeText>().score;
+
+                        
                         FindObjectOfType<AudioManager>().Play("great");
 
 
@@ -140,9 +154,20 @@ public class PlayerScript : MonoBehaviour
                     myT.GetComponent<fadeText>().follower = colliderClosest[i].gameObject;
                     if (okShot.GetComponent<valuecalculator>())
                     {
-                        myT.GetComponent<fadeText>().score = Mathf.RoundToInt(okShot.GetComponent<valuecalculator>().value + ((okShot.GetComponent<valuecalculator>().value / 100) * 7)+(-transform.position.y));
+
+                            myT.GetComponent<fadeText>().score = Mathf.RoundToInt((okShot.GetComponent<valuecalculator>().movementvalue + ((okShot.GetComponent<valuecalculator>().movementvalue / 100) * 7) + (-transform.position.y)) / 4);
+                        if (okShot.GetComponent<valuecalculator>().snapped == false)
+                        {
+                            money += myT.GetComponent<fadeText>().score;
+                           okShot.GetComponent<valuecalculator>().snapped = true;
+
+
+                        }
+                        else
+                        {
+                            myT.GetComponent<fadeText>().score = -1;
+                        }
                     }
-                        money += myT.GetComponent<fadeText>().score;
                         FindObjectOfType<AudioManager>().Play("good");
 
                 }
@@ -153,10 +178,20 @@ public class PlayerScript : MonoBehaviour
                     myT.GetComponent<fadeText>().follower = colliderClosest[i].gameObject;
                     if (mehShot.GetComponent<valuecalculator>())
                     {
-                        myT.GetComponent<fadeText>().score = Mathf.RoundToInt(mehShot.GetComponent<valuecalculator>().value + ((mehShot.GetComponent<valuecalculator>().value / 100) * 4)+(-transform.position.y));
                     }
+                    if (mehShot.GetComponent<valuecalculator>().snapped == false)
+                    {
+                        myT.GetComponent<fadeText>().score = Mathf.RoundToInt((mehShot.GetComponent<valuecalculator>().movementvalue + ((mehShot.GetComponent<valuecalculator>().movementvalue / 100) * 4) + (-transform.position.y)) / 4);
+
                         money += myT.GetComponent<fadeText>().score;
-                        FindObjectOfType<AudioManager>().Play("bad");
+                        mehShot.GetComponent<valuecalculator>().snapped = true; 
+
+                    }
+                    else
+                    {
+                        myT.GetComponent<fadeText>().score = -1;
+                    }
+                    FindObjectOfType<AudioManager>().Play("bad");
 
                 }
                 if (colliderClosest[i] == badShot)
@@ -164,7 +199,17 @@ public class PlayerScript : MonoBehaviour
 
                     GameObject myT = Instantiate(textPop, Camera.main.WorldToScreenPoint(colliderClosest[i].transform.position), Quaternion.identity, canvas.transform);
                     myT.GetComponent<fadeText>().follower = colliderClosest[i].gameObject;
-                    myT.GetComponent<fadeText>().score = 0;
+                    if (badShot.GetComponent<valuecalculator>().snapped == false)
+                    {
+                        myT.GetComponent<fadeText>().score = 0;
+                        badShot.GetComponent<valuecalculator>().snapped = true;
+
+                    }
+                    else
+                    {
+                        myT.GetComponent<fadeText>().score = -1;
+
+                    }
                     FindObjectOfType<AudioManager>().Play("bad");
 
 
@@ -187,6 +232,10 @@ public class PlayerScript : MonoBehaviour
 
         thrustInput = Input.GetAxisRaw("Vertical");
         camDown = Input.GetButtonDown("Fire1");
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            SceneManager.LoadScene(0,LoadSceneMode.Single);
+        }
         moneyText.text = "$"+money.ToString();
         gasText.text =   Mathf.RoundToInt(gas).ToString();
         updateM.text = upda;
@@ -214,7 +263,7 @@ public class PlayerScript : MonoBehaviour
             {
                 int change = (90 - gas) > 60 ? 60 : 90 - Mathf.RoundToInt(gas);
                 print(eco.whalePopulation);
-                int pay = Mathf.RoundToInt(9*6+100*(1 - eco.whalePopulation / eco.maxWhalePopulation));
+                int pay = Mathf.RoundToInt(change*6+100*(1 - eco.whalePopulation / eco.maxWhalePopulation));
                 if (money - pay > 0)
                 {
                     gas += change;
@@ -227,8 +276,19 @@ public class PlayerScript : MonoBehaviour
                 }
                 else
                 {
-                    upda = "Need more money!";
-                    delt = 0;
+                    if (gas == 0 && money - pay <=0)
+                    {
+                        upda = "You can't afford this gas.";
+                        delt = 0;
+
+
+                    }
+                    else
+                    {
+
+                        upda = "Take some pics of ocean life! I'll trade you for gas. You need $"+pay+" to get service.\n(Tap Z to take pics)";
+                        delt = 0;
+                    }
 
                 }
 
@@ -259,6 +319,18 @@ public class PlayerScript : MonoBehaviour
         else
         {
             eco.dayStart();
+            int change = (90 - gas) > 60 ? 60 : 90 - Mathf.RoundToInt(gas);
+
+            int pay = Mathf.RoundToInt(change * 6 + 100 * (1 - eco.whalePopulation / eco.maxWhalePopulation));
+            if (money - pay > 0)
+            {
+                
+                transform.position = Vector3.zero;
+            }
+            else
+            {
+                plane_body.gravityScale = 3;
+            }
         }
         handleFlash();
     }

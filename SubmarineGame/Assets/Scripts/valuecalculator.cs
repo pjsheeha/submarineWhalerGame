@@ -6,9 +6,10 @@ public class valuecalculator : MonoBehaviour
 {
     public float value;
     public float fixedvalue;
-    private float movementvalue;
+    public float movementvalue;
     public float sub = 90;
     public bool doesflips;
+    public bool snapped = false;
 
 
     void Start()
@@ -20,7 +21,7 @@ public class valuecalculator : MonoBehaviour
     void Update()
     {
 
-        movementvalue = this.transform.rotation.eulerAngles.z;
+        movementvalue = Mathf.Abs(this.transform.rotation.z-90)/sub;
         if(doesflips == true)
         {
             movementvalue = this.transform.rotation.eulerAngles.z;

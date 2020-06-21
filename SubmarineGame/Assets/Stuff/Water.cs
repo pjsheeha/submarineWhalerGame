@@ -42,7 +42,7 @@ public class Water : MonoBehaviour {
     void Start()
     {
         //Spawning our water
-        SpawnWater(-50,100,0,-60);
+        SpawnWater(-90,170,0,-60);
     }
 
     public void Splash2(Vector3 pos, float velocity)

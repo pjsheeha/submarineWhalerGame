@@ -7,7 +7,7 @@ public class boatbehavior : MonoBehaviour
 {
     public Transform target;
     public Transform movingObject;
-
+    GameObject player;
     public GameObject victimwhale;
     public float range = 15f;
     public float shootingrange = 10f;
@@ -24,6 +24,7 @@ public class boatbehavior : MonoBehaviour
         retreat = false;
         catched = false;
         armed = false;
+        player = GameObject.Find("player");
     }
 
     void UpdateTarget()
@@ -53,7 +54,10 @@ public class boatbehavior : MonoBehaviour
     	} else if (nearestEnemy == null || retreat == true){
             nearestEnemy = null;
             target = Reseter.transform;
+            this.GetComponent<LineRenderer>().enabled = false;
+
             Debug.Log("No whales");
+
         }
         //CAUGHT WHALE IN SHOOTING RANGE.
         if(shortestDistance <= shootingrange && catched == false)
@@ -71,9 +75,16 @@ public class boatbehavior : MonoBehaviour
             armed = false;
             catched = false;
             victimwhale = null;
-            target = nearestEnemy.transform;
-            this.GetComponent<LineRenderer>().enabled = false;
-            Debug.Log("I got whale find more");
+            if (nearestEnemy != null)
+            {
+                target = nearestEnemy.transform;
+                this.GetComponent<LineRenderer>().enabled = false;
+                Debug.Log("I got whale find more");
+            }
+            else
+            {
+                target = player.transform;
+            }
         }
 
     }
