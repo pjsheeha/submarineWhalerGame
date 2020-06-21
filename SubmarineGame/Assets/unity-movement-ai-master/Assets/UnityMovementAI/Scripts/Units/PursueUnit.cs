@@ -17,6 +17,7 @@ namespace UnityMovementAI
         public bool isinwater;
         public float minspeed;
         public float maxspeed;
+        public int victims; 
 
         SteeringBasics steeringBasics;
         Pursue pursue;
@@ -91,11 +92,12 @@ namespace UnityMovementAI
         }
         public void addTargetHomework()
         {
-           iwanttoeat = 1;
+            victims++;
         }
         public void Die()
         {
             Debug.Log("dead");
+            Destroy(gameObject);
         }
         void FixedUpdate()
         {
@@ -103,6 +105,25 @@ namespace UnityMovementAI
             
                 steeringBasics.Steer(accel);
                 steeringBasics.LookWhereYoureGoing();
+
+                if(victims > 0)
+                {
+                    iwanttoeat = 1;
+                } else {
+                    iwanttoeat = 0;
+                }
+        }
+        public void eaten()
+        {
+            GameObject.Find("EcosystemManager").GetComponent<EcosystemManagement>().removeOrganism(this.gameObject ,1);
+            
+        }
+        void OnTriggerEnter2D(Collider2D coll)
+        {
+            if(coll.gameObject.tag == whatsitsprey && victims > 0)
+            {
+                coll.GetComponent<PursueUnit>().eaten();
+            }
         }
     }
 }

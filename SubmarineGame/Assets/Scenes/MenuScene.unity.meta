@@ -1,11 +1,6 @@
 fileFormatVersion: 2
-<<<<<<< HEAD:SubmarineGame/Assets/Prefabs/cameraFlash.prefab.meta
-guid: 628f57d48b15d4f7c8ce88016f9b2a96
-PrefabImporter:
-=======
-guid: bda5ba29b43e2d44aaecaf2b62684e5c
+guid: 8323082d7afb12b4e9eba73b2ab39968
 DefaultImporter:
->>>>>>> 2a13452e3f2cf7b34e5e3333753cdecb0dbcdaf9:SubmarineGame/Assets/Scenes/MenuScene.unity.meta
   externalObjects: {}
   userData: 
   assetBundleName: 

@@ -15,9 +15,14 @@ public class poopbehavior : MonoBehaviour
     {
         
     }
+    public void eaten()
+        {
+            GameObject.Find("EcosystemManager").GetComponent<EcosystemManagement>().removeOrganism(this.gameObject ,1);
+            
+        }
     public void Die()
         {
             Debug.Log("dead");
-			
+            Destroy(gameObject);
         }
 }

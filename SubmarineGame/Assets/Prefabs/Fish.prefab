@@ -9,7 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9101486867609807701}
-  - component: {fileID: 9101486867609807699}
   - component: {fileID: 9101486867609807697}
   - component: {fileID: 9101486867609807689}
   - component: {fileID: 9101486867609807702}
@@ -42,18 +41,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &9101486867609807699
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9101486867609807710}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b12e35fcbc717914885fe9c3d8f36e02, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!50 &9101486867609807697
 Rigidbody2D:
   serializedVersion: 4
@@ -148,6 +135,7 @@ MonoBehaviour:
   isinwater: 0
   minspeed: 1
   maxspeed: 4
+  victims: 0
 --- !u!114 &7831788998351478319
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -218,7 +206,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   value: 0
+  fixedvalue: 0
   sub: 4
+  doesflips: 0
 --- !u!1 &9101486867933094333
 GameObject:
   m_ObjectHideFlags: 0
