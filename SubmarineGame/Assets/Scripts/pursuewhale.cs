@@ -27,7 +27,7 @@ namespace UnityMovementAI
 	        iwanttoeat = 0;
 	        target = GameObject.Find("cruiser").GetComponent<MovementAIRigidbody>();
 	        this.GetComponent<SteeringBasics>().maxVelocity = Random.Range(minspeed, maxspeed);
-	        Debug.Log(this.GetComponent<SteeringBasics>().maxVelocity);
+	        //Debug.Log(this.GetComponent<SteeringBasics>().maxVelocity);
 	        caught = false;
 	        dead = false;
 
@@ -69,6 +69,7 @@ namespace UnityMovementAI
         }
         public void Die()
         {
+        	FindObjectOfType<AudioManager>().Play("eat");
             Destroy(gameObject);
 			if (boater != null)
 			{

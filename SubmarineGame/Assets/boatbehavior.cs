@@ -47,11 +47,13 @@ public class boatbehavior : MonoBehaviour
     	if (nearestEnemy != null && shortestDistance <= range && catched == false)
     	{
     		target = nearestEnemy.transform;
+            Debug.Log("I see a whale");
 
         //RETREAT IF DAMAGED OR NO WHALES
     	} else if (nearestEnemy == null || retreat == true){
             nearestEnemy = null;
             target = Reseter.transform;
+            Debug.Log("No whales");
         }
         //CAUGHT WHALE IN SHOOTING RANGE.
         if(shortestDistance <= shootingrange && catched == false)
@@ -61,6 +63,8 @@ public class boatbehavior : MonoBehaviour
             victimwhale = nearestEnemy;
             this.GetComponent<LineRenderer>().enabled = true;
             target = victimwhale.transform;
+            FindObjectOfType<AudioManager>().Play("harpoon");
+            Debug.Log("I shoot a whale");
         } 
         if(catched == false || target == null || victimwhale == null)
         {
@@ -69,6 +73,7 @@ public class boatbehavior : MonoBehaviour
             victimwhale = null;
             target = nearestEnemy.transform;
             this.GetComponent<LineRenderer>().enabled = false;
+            Debug.Log("I got whale find more");
         }
 
     }
@@ -96,5 +101,8 @@ public class boatbehavior : MonoBehaviour
         {
             boatattack();
         }
+         Vector3 pos = transform.position;
+         pos.z = -3;
+         transform.position = pos;
     }
 }

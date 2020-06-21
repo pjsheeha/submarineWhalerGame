@@ -52,6 +52,8 @@ public class PlayerScript : MonoBehaviour
 
         plane_body = GetComponent<Rigidbody2D>();
 
+        FindObjectOfType<AudioManager>().Play("Music");
+
     }
 
     protected void handleFlash()
@@ -59,6 +61,7 @@ public class PlayerScript : MonoBehaviour
 
         if (camDown)
         {
+             FindObjectOfType<AudioManager>().Play("camera");
 
             Collider2D[] hitColliders = Physics2D.OverlapBoxAll(transform.position, new Vector2(Screen.width * unit, Screen.height * unit), 0, m_LayerMask);
 
@@ -126,6 +129,7 @@ public class PlayerScript : MonoBehaviour
                         myT.GetComponent<fadeText>().score = Mathf.RoundToInt(moneyShot.GetComponent<valuecalculator>().value + ((moneyShot.GetComponent<valuecalculator>().value / 100) * 10) + (-transform.position.y));
                     }
                         money += myT.GetComponent<fadeText>().score;
+                        FindObjectOfType<AudioManager>().Play("great");
 
 
                 }
@@ -139,6 +143,7 @@ public class PlayerScript : MonoBehaviour
                         myT.GetComponent<fadeText>().score = Mathf.RoundToInt(okShot.GetComponent<valuecalculator>().value + ((okShot.GetComponent<valuecalculator>().value / 100) * 7)+(-transform.position.y));
                     }
                         money += myT.GetComponent<fadeText>().score;
+                        FindObjectOfType<AudioManager>().Play("good");
 
                 }
                 if (colliderClosest[i] == mehShot)
@@ -151,6 +156,7 @@ public class PlayerScript : MonoBehaviour
                         myT.GetComponent<fadeText>().score = Mathf.RoundToInt(mehShot.GetComponent<valuecalculator>().value + ((mehShot.GetComponent<valuecalculator>().value / 100) * 4)+(-transform.position.y));
                     }
                         money += myT.GetComponent<fadeText>().score;
+                        FindObjectOfType<AudioManager>().Play("bad");
 
                 }
                 if (colliderClosest[i] == badShot)
@@ -159,6 +165,7 @@ public class PlayerScript : MonoBehaviour
                     GameObject myT = Instantiate(textPop, Camera.main.WorldToScreenPoint(colliderClosest[i].transform.position), Quaternion.identity, canvas.transform);
                     myT.GetComponent<fadeText>().follower = colliderClosest[i].gameObject;
                     myT.GetComponent<fadeText>().score = 0;
+                    FindObjectOfType<AudioManager>().Play("bad");
 
 
                 }
@@ -215,6 +222,7 @@ public class PlayerScript : MonoBehaviour
                     upda = "Added " + change + " gallons, paid $" + pay;
                     money -= pay;
                     delt = 0;
+                    FindObjectOfType<AudioManager>().Play("coin");
 
                 }
                 else
@@ -313,6 +321,7 @@ public class PlayerScript : MonoBehaviour
         }
         else
         {
+            //FindObjectOfType<AudioManager>().Play("splash");
 
             //plane_body.gravityScale = plane_body.gravityScale+10;
 

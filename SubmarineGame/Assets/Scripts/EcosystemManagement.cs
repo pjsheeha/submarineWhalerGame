@@ -97,6 +97,7 @@ public class EcosystemManagement : MonoBehaviour
         if ((Random.Range(0f, 1f) > 0.2f) && (day > 1))
         {
             Instantiate(whalerInstance, whalerBoatCoords1.transform.position, transform.rotation);
+             FindObjectOfType<AudioManager>().Play("whaler");
             if (Random.Range(0f, 1f) > 0.5f)
             {
                 Instantiate(whalerInstance, whalerBoatCoords2.transform.position, transform.rotation);

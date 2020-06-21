@@ -98,6 +98,7 @@ namespace UnityMovementAI
         public void Die()
         {
             Debug.Log("dead");
+            FindObjectOfType<AudioManager>().Play("eat");
             Destroy(gameObject);
         }
         void FixedUpdate()
