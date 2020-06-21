@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: -6331922522785369561}
   - component: {fileID: -2156743962523717227}
   - component: {fileID: 5206507935904802334}
+  - component: {fileID: -6186180798311997533}
   m_Layer: 0
   m_Name: whalepoop
   m_TagString: Shit
@@ -167,3 +168,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isinwater: 0
   waterlevel: -7
+--- !u!114 &-6186180798311997533
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1779965425088804277}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb90a497f9ebb6f47b6b16a2a9942e4e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  value: 0
+  fixedvalue: 1
+  doesflips: 0

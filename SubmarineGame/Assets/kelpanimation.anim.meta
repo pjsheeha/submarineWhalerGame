@@ -1,6 +1,11 @@
 fileFormatVersion: 2
+<<<<<<< HEAD:SubmarineGame/Assets/kelpanimation.anim.meta
 guid: 4134e782f174f40b2b69c6979509bc00
 NativeFormatImporter:
+=======
+guid: f446a840a1665064ab274a5c699f565a
+PrefabImporter:
+>>>>>>> 2a13452e3f2cf7b34e5e3333753cdecb0dbcdaf9:SubmarineGame/Assets/Prefabs/BOAT.prefab.meta
   externalObjects: {}
   mainObjectFileID: 7400000
   userData: 
