@@ -21,7 +21,9 @@ public class PlayerScript : MonoBehaviour
     public bool camDown = false;
     public float level_width = 1000;
     public float level_height = 500;
+    public Water waterManager; 
     public LayerMask m_LayerMask;
+    public GameObject exhaust;
     float unit = 1;
     private void setupLevelBounds()
     {
@@ -189,6 +191,7 @@ public class PlayerScript : MonoBehaviour
                 curThrust = Mathf.Min(curThrust + 2.3f * Time.fixedDeltaTime, maxThrust);
                 plane_body.gravityScale = 0;
                 plane_body.AddForce(getAimDir() * acceleration * curThrust, ForceMode2D.Impulse);
+                waterManager.GetComponent<Water>().Splash2(exhaust.transform.position, plane_body.velocity.magnitude);
             }
             else
             {
