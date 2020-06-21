@@ -170,7 +170,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isinwater: 0
-  waterlevel: -1
+  waterlevel: -3
 --- !u!58 &-2644322793614764474
 CircleCollider2D:
   m_ObjectHideFlags: 0
