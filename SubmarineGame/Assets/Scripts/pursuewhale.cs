@@ -67,6 +67,9 @@ namespace UnityMovementAI
 	    {
 	    	Debug.Log("Hunted Oh shuit");
 			GameObject.Find("EcosystemManager").GetComponent<EcosystemManagement>().removeOrganism(this.gameObject ,1);
+			//Insert code to tell whale to go to that specific boat and die.
+			//Disable colliders and all movement behavior.
+			
 		}
 
 	    // Update is called once per frame
