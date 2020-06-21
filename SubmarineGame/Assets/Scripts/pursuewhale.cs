@@ -70,8 +70,11 @@ namespace UnityMovementAI
         public void Die()
         {
             Destroy(gameObject);
-            boater.GetComponent<boatbehavior>().catched = false;
-            boater = null;
+			if (boater != null)
+			{
+				boater.GetComponent<boatbehavior>().catched = false;
+				boater = null;
+			}
 			
         }
 	    public void huntedByShip()

@@ -13,11 +13,10 @@ namespace UnityMovementAI
         //2 = hotspot. track hotstpot
         public string whatsitsprey;
         public string whatsitshotspot;
-        public float eatnumber;
         public bool isinwater;
         public float minspeed;
         public float maxspeed;
-        public int victims; 
+        int victims = 0; 
 
         SteeringBasics steeringBasics;
         Pursue pursue;
@@ -60,7 +59,7 @@ namespace UnityMovementAI
                 }
             }
             //SEEK TARGETS
-            if (nearestEnemy2 != null && shortestDistance <= range && iwanttoeat == 1 && eatnumber < 0)
+            if (nearestEnemy2 != null && shortestDistance <= range && iwanttoeat == 1 && victims > 0)
             {
                 //EAT
                 target = nearestEnemy2.GetComponent<MovementAIRigidbody>();
@@ -92,7 +91,9 @@ namespace UnityMovementAI
         }
         public void addTargetHomework()
         {
+            Debug.Log("Got assigned homework #goals");
             victims++;
+            iwanttoeat = 1;
         }
         public void Die()
         {

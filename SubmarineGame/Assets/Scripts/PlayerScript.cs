@@ -250,7 +250,7 @@ public class PlayerScript : MonoBehaviour
         }
         else
         {
-            eco.checkToEndDay = true;
+            eco.dayStart();
         }
         handleFlash();
     }
