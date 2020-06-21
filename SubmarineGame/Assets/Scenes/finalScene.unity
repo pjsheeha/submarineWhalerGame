@@ -135,12 +135,12 @@ PrefabInstance:
     - target: {fileID: 3536793555081775019, guid: da9a948f952e6114ea2008c94ff8ba8b,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -37
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3536793555081775019, guid: da9a948f952e6114ea2008c94ff8ba8b,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -10.1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3536793555081775019, guid: da9a948f952e6114ea2008c94ff8ba8b,
         type: 3}
@@ -189,9 +189,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3536793555081775020, guid: da9a948f952e6114ea2008c94ff8ba8b,
         type: 3}
-      propertyPath: dayLengthSeconds
-      value: 90
-      objectReference: {fileID: 0}
+      propertyPath: whalerBoatCoords1
+      value: 
+      objectReference: {fileID: 440552457}
+    - target: {fileID: 3536793555081775020, guid: da9a948f952e6114ea2008c94ff8ba8b,
+        type: 3}
+      propertyPath: whalerBoatCoords2
+      value: 
+      objectReference: {fileID: 262943559}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: da9a948f952e6114ea2008c94ff8ba8b, type: 3}
 --- !u!1 &85093511
@@ -608,6 +613,36 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &262943559
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 262943560}
+  m_Layer: 0
+  m_Name: whalerSpawner2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &262943560
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 262943559}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -45.3, y: 3.1, z: -1366.1875}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 21
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &267303947
 GameObject:
   m_ObjectHideFlags: 0
@@ -960,6 +995,36 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 17
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &440552457
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 440552458}
+  m_Layer: 0
+  m_Name: whalerSpawner1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &440552458
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 440552457}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 40.8, y: 3.4, z: -1366.1875}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 20
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &479810499
 GameObject:
