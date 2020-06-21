@@ -91,6 +91,16 @@ namespace UnityMovementAI
 			//Debug.Log(boater);
 			reeledin();
 		}
+		public void boatdestroyed()
+		{
+			boater = null;
+			caught = false;
+			GameObject.Find("cruiser").GetComponent<MovementAIRigidbody>();
+				
+			this.GetComponent<CircleCollider2D>().enabled = true;
+			this.GetComponent<waterchecker>().enabled = true;
+			this.GetComponent<SteeringBasics>().maxVelocity = 0.5f;
+		}
 		void reeledin()
 		{
 			if(boater != null)
@@ -106,7 +116,7 @@ namespace UnityMovementAI
 		        {
 		        	dead = true;
 		        }
-	    	}	
+	    	}
 		}
 
 	    // Update is called once per frame

@@ -1074,7 +1074,7 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: splash
     clip: {fileID: 8300000, guid: 9d694f9ae2b5ab84095f244e6b6961a2, type: 3}
-    volume: 0.294
+    volume: 0.649
     volumeVariance: 0
     pitch: 0
     pitchVariance: 0

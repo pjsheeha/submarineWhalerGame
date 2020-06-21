@@ -17,6 +17,7 @@ public class boatbehavior : MonoBehaviour
     private float fireCountdown = 0f;
     private bool armed;
     public bool catched;
+    private bool dead;
 
     void Start()
     {
@@ -45,7 +46,7 @@ public class boatbehavior : MonoBehaviour
     		}
     	}
         //SEARCH WHALES. STOP SEEKING WHALES IF WHALE IS CAUGHT.
-    	if (nearestEnemy != null && shortestDistance <= range && catched == false)
+    	if (nearestEnemy != null && shortestDistance <= range && catched == false && dead == false)
     	{
     		target = nearestEnemy.transform;
             Debug.Log("I see a whale");
@@ -60,7 +61,7 @@ public class boatbehavior : MonoBehaviour
 
         }
         //CAUGHT WHALE IN SHOOTING RANGE.
-        if(shortestDistance <= shootingrange && catched == false)
+        if(shortestDistance <= shootingrange && catched == false && dead == false)
         {
             armed = true;
             catched = true; //STOPS SEARCH
@@ -107,13 +108,35 @@ public class boatbehavior : MonoBehaviour
         if(target == null)
         	return;
 
-        movingObject.position = Vector3.MoveTowards(movingObject.position, target.position, Time.deltaTime*speed);
-        if(armed == true)
+        if(dead == false)
+        {
+            movingObject.position = Vector3.MoveTowards(movingObject.position, target.position, Time.deltaTime*speed);
+        }
+        if(armed == true && dead == false)
         {
             boatattack();
         }
          Vector3 pos = transform.position;
          pos.z = -3;
          transform.position = pos;
+         if(this.transform.position.y <= -60)
+         {
+            Destroy(gameObject);
+         }
     }
+    void OnTriggerEnter2D(Collider2D coll)
+        {
+            if(coll.gameObject.tag == "Player")
+            {
+                Debug.Log("Destroyed");
+                catched = false;
+                dead = true;
+                this.GetComponent<CircleCollider2D>().enabled = false;
+                this.GetComponent<BoxCollider2D>().enabled = false;
+                this.GetComponent<Rigidbody2D>().gravityScale = 0.2f;
+                victimwhale.GetComponent<pursuewhale>().boatdestroyed();
+                FindObjectOfType<AudioManager>().Play("splash");
+                FindObjectOfType<AudioManager>().Play("great");
+            }
+        }
 }
