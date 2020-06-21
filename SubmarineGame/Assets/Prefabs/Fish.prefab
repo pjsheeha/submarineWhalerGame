@@ -19,7 +19,8 @@ GameObject:
   - component: {fileID: 580251040903154985}
   - component: {fileID: 6424037865064772734}
   - component: {fileID: 8141142688534775424}
-  m_Layer: 0
+  - component: {fileID: 745129750273513465}
+  m_Layer: 8
   m_Name: Fish
   m_TagString: Fish
   m_Icon: {fileID: 0}
@@ -204,6 +205,20 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 7.04
+--- !u!114 &745129750273513465
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9101486867609807710}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb90a497f9ebb6f47b6b16a2a9942e4e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  value: 0
+  sub: 4
 --- !u!1 &9101486867933094333
 GameObject:
   m_ObjectHideFlags: 0
@@ -214,7 +229,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9101486867933094332}
   - component: {fileID: 9101486867933094335}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: GameObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}

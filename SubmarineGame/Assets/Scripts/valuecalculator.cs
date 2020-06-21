@@ -6,6 +6,7 @@ public class valuecalculator : MonoBehaviour
 {
     public float value;
     private float movementvalue;
+    public float sub = 90;
 
     void Start()
     {
@@ -16,6 +17,6 @@ public class valuecalculator : MonoBehaviour
     void Update()
     {
         movementvalue = this.transform.rotation.eulerAngles.z;
-        value = Mathf.Abs(movementvalue -90);
+        value = Mathf.Abs(movementvalue-90 )/sub;
     }
 }

@@ -2,16 +2,26 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 public class fadeText : MonoBehaviour
 {
      byte alpha= 255;
     public int score = 0;
     public GameObject follower;
+    public bool text = true;
     TextMeshProUGUI textMesh;
+    Image im;
     // Start is called before the first frame update
     void Start()
     {
-        textMesh = GetComponent<TextMeshProUGUI>();
+        if (text == true)
+        {
+            textMesh = GetComponent<TextMeshProUGUI>();
+        }
+        else
+        {
+            im = GetComponent<Image>();
+        }
 
     }
 
@@ -20,17 +30,31 @@ public class fadeText : MonoBehaviour
     {
         if (score > 0)
         {
-            textMesh.text = "+ " + score;
-            Vector3 m = Camera.main.WorldToScreenPoint(follower.transform.position);
-            transform.position = new Vector3(m.x, m.y - (alpha / 10) + (75));
-            textMesh.color = new Color32(255, 255, 255, alpha);
+            if (text == true)
+            {
+                textMesh.text = "+ " + score;
+                Vector3 m = Camera.main.WorldToScreenPoint(follower.transform.position);
+                transform.position = new Vector3(m.x, m.y - (alpha / 10) + (75));
+                textMesh.color = new Color32(255, 255, 255, alpha);
+            }
+            else
+            {
+                im.color = new Color32(255, 255, 255, alpha);
+            }
         }
         else
         {
-            textMesh.text = "Not good framing";
-            Vector3 m = Camera.main.WorldToScreenPoint(follower.transform.position);
-            transform.position = new Vector3(m.x, m.y - (alpha / 10) + (75));
-            textMesh.color = new Color32(255, 0, 0, alpha);
+            if (text == true)
+            {
+                textMesh.text = "Not good framing";
+                Vector3 m = Camera.main.WorldToScreenPoint(follower.transform.position);
+                transform.position = new Vector3(m.x, m.y - (alpha / 10) + (75));
+                textMesh.color = new Color32(255, 0, 0, alpha);
+            }
+            else
+            {
+                im.color = new Color32(255, 255, 255, alpha);
+            }
         }
 
     }
@@ -38,10 +62,18 @@ public class fadeText : MonoBehaviour
     {
         if (alpha > 0)
         {
-            alpha -= 3;
+            if (text == true)
+            {
+                alpha -= 3;
+            }
+            else
+            {
+                alpha -= 5;
+            }
         }
         else
         {
+            print("WTF");
             Destroy(this.gameObject);
         }
     }

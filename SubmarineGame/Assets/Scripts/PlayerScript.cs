@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using TMPro;
 public class PlayerScript : MonoBehaviour
 {
     public float maxSpeed = 40;
@@ -12,6 +12,9 @@ public class PlayerScript : MonoBehaviour
     protected float thrustInput = 0;
     public float rotSpeed = 320;
     protected Rigidbody2D plane_body;
+    public GameObject flash;
+    float delt = 0;
+    string upda ="";
     protected float curThrust = 0;
     private float maxThrust = 1;
     public float acceleration = 10;
@@ -21,9 +24,17 @@ public class PlayerScript : MonoBehaviour
     public bool camDown = false;
     public float level_width = 1000;
     public float level_height = 500;
+    public TextMeshProUGUI moneyText;
+    public TextMeshProUGUI gasText;
+    public TextMeshProUGUI updateM;
+
+    public EcosystemManagement eco;
     public Water waterManager; 
     public LayerMask m_LayerMask;
     public GameObject exhaust;
+    public float money = 0;
+    public float gas = 90;
+
     float unit = 1;
     private void setupLevelBounds()
     {
@@ -105,10 +116,16 @@ public class PlayerScript : MonoBehaviour
             {
                 if (colliderClosest[i] == moneyShot)
                 {
+
                     print("W");
+                    
                     GameObject myT = Instantiate(textPop, Camera.main.WorldToScreenPoint(colliderClosest[i].transform.position), Quaternion.identity, canvas.transform);
                     myT.GetComponent<fadeText>().follower = colliderClosest[i].gameObject;
-                    myT.GetComponent<fadeText>().score = 10;
+                    if (moneyShot.GetComponent<valuecalculator>())
+                    {
+                        myT.GetComponent<fadeText>().score = Mathf.RoundToInt(moneyShot.GetComponent<valuecalculator>().value + ((moneyShot.GetComponent<valuecalculator>().value / 100) * 10) + (-transform.position.y));
+                    }
+                        money += myT.GetComponent<fadeText>().score;
 
 
                 }
@@ -117,8 +134,11 @@ public class PlayerScript : MonoBehaviour
 
                     GameObject myT = Instantiate(textPop, Camera.main.WorldToScreenPoint(colliderClosest[i].transform.position), Quaternion.identity, canvas.transform);
                     myT.GetComponent<fadeText>().follower = colliderClosest[i].gameObject;
-                    myT.GetComponent<fadeText>().score = 7;
-
+                    if (okShot.GetComponent<valuecalculator>())
+                    {
+                        myT.GetComponent<fadeText>().score = Mathf.RoundToInt(okShot.GetComponent<valuecalculator>().value + ((okShot.GetComponent<valuecalculator>().value / 100) * 7)+(-transform.position.y));
+                    }
+                        money += myT.GetComponent<fadeText>().score;
 
                 }
                 if (colliderClosest[i] == mehShot)
@@ -126,8 +146,11 @@ public class PlayerScript : MonoBehaviour
 
                     GameObject myT = Instantiate(textPop, Camera.main.WorldToScreenPoint(colliderClosest[i].transform.position), Quaternion.identity, canvas.transform);
                     myT.GetComponent<fadeText>().follower = colliderClosest[i].gameObject;
-                    myT.GetComponent<fadeText>().score = 4;
-
+                    if (mehShot.GetComponent<valuecalculator>())
+                    {
+                        myT.GetComponent<fadeText>().score = Mathf.RoundToInt(mehShot.GetComponent<valuecalculator>().value + ((mehShot.GetComponent<valuecalculator>().value / 100) * 4)+(-transform.position.y));
+                    }
+                        money += myT.GetComponent<fadeText>().score;
 
                 }
                 if (colliderClosest[i] == badShot)
@@ -143,6 +166,10 @@ public class PlayerScript : MonoBehaviour
                 i++;
 
             }
+
+            Instantiate(flash, Camera.main.WorldToScreenPoint(transform.position), Quaternion.identity, canvas.transform);
+            Debug.Log("d"); 
+
         }
     }
 
@@ -153,7 +180,58 @@ public class PlayerScript : MonoBehaviour
 
         thrustInput = Input.GetAxisRaw("Vertical");
         camDown = Input.GetButtonDown("Fire1");
+        moneyText.text = "$"+money.ToString();
+        gasText.text =   Mathf.RoundToInt(gas).ToString();
+        updateM.text = upda;
+        if (upda != "")
+        {
+            if(delt < 2)
+            {
+                delt += Time.deltaTime;
+            }
+            else
+            {
+                delt = 0;
+                upda = "";
+            }
+        }
 
+
+    }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "store")
+        {
+            print("Buy!");
+            if (gas < 90 )
+            {
+                int change = (90 - gas) > 60 ? 60 : 90 - Mathf.RoundToInt(gas);
+                print(eco.whalePopulation);
+                int pay = Mathf.RoundToInt(9*6+100*(1 - eco.whalePopulation / eco.maxWhalePopulation));
+                if (money - pay > 0)
+                {
+                    gas += change;
+
+                    upda = "Added " + change + " gallons, paid $" + pay;
+                    money -= pay;
+                    delt = 0;
+
+                }
+                else
+                {
+                    upda = "Need more money!";
+                    delt = 0;
+
+                }
+
+
+            }
+            else
+            {
+                upda = "Full tank!";
+                delt = 0;
+            }
+        }
     }
     public float getWaterLevel()
     {
@@ -166,7 +244,14 @@ public class PlayerScript : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        handleMotion();
+        if (gas > 0)
+        {
+            handleMotion();
+        }
+        else
+        {
+            eco.checkToEndDay = true;
+        }
         handleFlash();
     }
 
@@ -192,12 +277,21 @@ public class PlayerScript : MonoBehaviour
                 plane_body.gravityScale = 0;
                 plane_body.AddForce(getAimDir() * acceleration * curThrust, ForceMode2D.Impulse);
                 waterManager.GetComponent<Water>().Splash2(exhaust.transform.position, plane_body.velocity.magnitude);
+                if (gas > 0)
+                {
+                    gas -= Time.fixedDeltaTime;
+                }
             }
             else
             {
 
                 curThrust = 0;
                 plane_body.gravityScale = 3f;
+                if (gas > 0)
+                {
+                    gas -= Time.fixedDeltaTime;
+                }
+
 
             }
         }

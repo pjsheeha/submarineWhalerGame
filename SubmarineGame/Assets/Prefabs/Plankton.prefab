@@ -20,7 +20,7 @@ GameObject:
   - component: {fileID: 1090951007652101542}
   - component: {fileID: 9162987292495420186}
   - component: {fileID: 835581551346913318}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Plankton
   m_TagString: Plankton
   m_Icon: {fileID: 0}
@@ -196,6 +196,8 @@ MonoBehaviour:
   whatsitshotspot: Shit
   eatnumber: 0
   isinwater: 0
+  minspeed: 0
+  maxspeed: 0
 --- !u!114 &4026431013835907889
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -234,6 +236,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isinwater: 0
+  waterlevel: 0
 --- !u!58 &835581551346913318
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -270,7 +273,8 @@ GameObject:
   - component: {fileID: -8978197435277864931}
   - component: {fileID: -611646412658467574}
   - component: {fileID: -1905409505485866291}
-  m_Layer: 0
+  - component: {fileID: -6814487764090736925}
+  m_Layer: 8
   m_Name: Plankton
   m_TagString: Plankton
   m_Icon: {fileID: 0}
@@ -447,6 +451,8 @@ MonoBehaviour:
   whatsitshotspot: Shit
   eatnumber: 0
   isinwater: 0
+  minspeed: 0
+  maxspeed: 0
 --- !u!114 &-2206105625675156743
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -485,6 +491,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isinwater: 0
+  waterlevel: 0
 --- !u!58 &-1905409505485866291
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -501,3 +508,17 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.19
+--- !u!114 &-6814487764090736925
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4603642501177871245}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb90a497f9ebb6f47b6b16a2a9942e4e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  value: 0
+  sub: 10

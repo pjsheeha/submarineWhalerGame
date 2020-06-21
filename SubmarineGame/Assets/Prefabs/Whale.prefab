@@ -18,7 +18,7 @@ GameObject:
   - component: {fileID: 9043606122933015818}
   - component: {fileID: -1891502115806926758}
   - component: {fileID: -2644322793614764474}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Whale
   m_TagString: whale
   m_Icon: {fileID: 0}
@@ -157,6 +157,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   value: 0
+  sub: 1
 --- !u!114 &-1891502115806926758
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -198,7 +199,7 @@ GameObject:
   - component: {fileID: 9043606123375395240}
   - component: {fileID: 9043606123375395241}
   - component: {fileID: 4500758496403722367}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: GameObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
