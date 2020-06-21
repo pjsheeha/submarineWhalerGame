@@ -43,10 +43,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a59d475aece5d24c9dffb84f76a9f18, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  checkToEndDay: 0
+  checkToKillWhale: 0
+  checkToStartDay: 0
   timerDay: 0
   dayLengthSeconds: 300
-  WhaleInstance: {fileID: 0}
-  FishInstance: {fileID: 0}
-  KrillInstance: {fileID: 0}
-  PlanktonInstance: {fileID: 0}
-  WhalePoopInstance: {fileID: 0}
+  WhaleInstance: {fileID: 9043606122933015816, guid: 1c2b8f06148aa914aa6698046172fad7,
+    type: 3}
+  FishInstance: {fileID: 9101486867609807710, guid: cd8718ea27e5440438446a4399f371f8,
+    type: 3}
+  KrillInstance: {fileID: 2653697626079824715, guid: d07404039ec6c6949bbfb7e49a77eeff,
+    type: 3}
+  PlanktonInstance: {fileID: 4603642501177871245, guid: d2a83accba4daf64c8fe6df7feebfa2a,
+    type: 3}
+  WhalePoopInstance: {fileID: 1779965425088804277, guid: fe8b04d8115b42446bc42e31a9a305db,
+    type: 3}
+  whalePopulation: 0
+  fishPopulation: 0
+  krillPopulation: 0
+  planktonPopulation: 0
+  whalePoopPopulation: 0

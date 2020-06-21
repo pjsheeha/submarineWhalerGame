@@ -11,10 +11,11 @@ public class EcosystemManagement : MonoBehaviour
     int day = 0;
     public bool checkToEndDay = false;
     public bool checkToKillWhale = false;
+    public bool checkToStartDay = false;
     int globalWarmth = 0;
     public float timerDay = 0f;
     float healFactor = 1.07f;
-    float growthRate = 0.708f;
+    float growthRate = 0.6f; //0.708
     bool dayStarted = false;
     bool canSignalWhales = false;
     bool canSignalFish = false;
@@ -77,6 +78,12 @@ public class EcosystemManagement : MonoBehaviour
         {
             checkToKillWhale = false;
             whales[0].GetComponent<pursuewhale>().huntedByShip();
+        }
+
+        if (checkToStartDay)
+        {
+            checkToStartDay = false;
+            dayStart();
         }
     }
 
@@ -158,7 +165,7 @@ public class EcosystemManagement : MonoBehaviour
      * 1: hunted
      * 2: eaten
      */
-    void removeOrganism(GameObject callerId, int reason)
+    public void removeOrganism(GameObject callerId, int reason)
     {
         removeCallerIdFromList(callerId, reason);
     }
@@ -166,13 +173,15 @@ public class EcosystemManagement : MonoBehaviour
     /// Find where in the array caller id is, eliminate it
     int removeCallerIdFromList(GameObject callerId, int reason)
     {
+        Debug.Log("called to remove caller");
         int ret = 0;
         if (whales.Contains(callerId))
         {
             whales.Remove(callerId);
             if (reason == 1)
                 whalePopulation--;
-            callerId.GetComponent<death>().Die();
+            callerId.GetComponent<pursuewhale>().Die();
+            Debug.Log("Called die on whale");
         }
         else if (fishes.Contains(callerId))
         {
@@ -184,7 +193,7 @@ public class EcosystemManagement : MonoBehaviour
                 fishThatMustBeEaten--;
                 fishPopulation--;
             }
-            callerId.GetComponent<death>().Die();
+            callerId.GetComponent<PursueUnit>().Die();
         }
         else if (krills.Contains(callerId))
         {
@@ -196,7 +205,7 @@ public class EcosystemManagement : MonoBehaviour
                 krillThatMustBeEaten--;
                 krillPopulation--;
             }
-            callerId.GetComponent<death>().Die();
+            callerId.GetComponent<PursueUnit>().Die();
         }
         else if (planktons.Contains(callerId))
         {
@@ -208,7 +217,7 @@ public class EcosystemManagement : MonoBehaviour
                 planktonThatMustBeEaten--;
                 planktonPopulation--;
             }
-            callerId.GetComponent<death>().Die();
+            callerId.GetComponent<PursueUnit>().Die();
         }
         else if (whalePoops.Contains(callerId))
         {
@@ -220,7 +229,7 @@ public class EcosystemManagement : MonoBehaviour
                 whalePoopThatMustBeEaten--;
                 whalePoopPopulation--;
             }
-            callerId.GetComponent<death>().Die();
+            callerId.GetComponent<PursueUnit>().Die();
         }
         else
         {
@@ -272,11 +281,11 @@ public class EcosystemManagement : MonoBehaviour
         float newWhalePoopPercentage = whalePercentage;
 
         // Ok, now that we've fiigured out the percentage we proceed to convert this values to ceiled populations
-        whalePopulation = (int)Mathf.Ceil(newWhalePercentage * maxWhalePopulation);
-        fishPopulation = (int)Mathf.Ceil(newFishPercentage * maxFishPopulation);
-        krillPopulation = (int)Mathf.Ceil(newKrillPercentage * maxKrillPopulation);
-        planktonPopulation = (int)Mathf.Ceil(newPlanktonPercentage * maxPlanktonPopulation);
-        whalePoopPopulation = (int)Mathf.Ceil(newWhalePoopPercentage * maxWhalePoopPopulation);
+        whalePopulation = Mathf.Max( (int)Mathf.Ceil(newWhalePercentage * maxWhalePopulation), 1);
+        fishPopulation = Mathf.Max( (int)Mathf.Ceil(newFishPercentage * maxFishPopulation), 1);
+        krillPopulation = Mathf.Max( (int)Mathf.Ceil(newKrillPercentage * maxKrillPopulation), 1);
+        planktonPopulation = Mathf.Max( (int)Mathf.Ceil(newPlanktonPercentage * maxPlanktonPopulation), 1);
+        whalePoopPopulation = Mathf.Max( (int)Mathf.Ceil(newWhalePoopPercentage * maxWhalePoopPopulation), 1);
 
         // By this part its possible for difference in whole numbers to exist in previousPopulation and todayPopulation.
         // We have to order our organisms what to eat tomorrow.
@@ -310,7 +319,7 @@ public class EcosystemManagement : MonoBehaviour
             int index = 0;
             while (feed > 0)
             {
-                whales[index].GetComponent<homeworkgiver>().addTargetHomework();
+                whales[index].GetComponent<pursuewhale>().addTargetHomework();
                 index++;
                 index = index % whales.Count;
                 feed--;
@@ -345,7 +354,7 @@ public class EcosystemManagement : MonoBehaviour
             int index = 0;
             while (feed > 0)
             {
-                krills[index].GetComponent<homeworkgiver>().addTargetHomework();
+                krills[index].GetComponent<PursueUnit>().addTargetHomework();
                 index++;
                 index = index % krills.Count;
                 feed--;
@@ -362,7 +371,7 @@ public class EcosystemManagement : MonoBehaviour
             int index = 0;
             while (feed > 0)
             {
-                planktons[index].GetComponent<homeworkgiver>().addTargetHomework();
+                planktons[index].GetComponent<PursueUnit>().addTargetHomework();
                 index++;
                 index = index % planktons.Count;
                 feed--;
