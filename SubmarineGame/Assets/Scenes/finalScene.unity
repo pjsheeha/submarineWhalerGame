@@ -2681,7 +2681,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 0}
   movingObject: {fileID: 1983043665}
-  range: 11
+  range: 15
+  shootingrange: 5
   fireRate: 1
   speed: 2
   retreat: 0
@@ -2790,7 +2791,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1983043660}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 47.2, y: 9, z: -3}
+  m_LocalPosition: {x: 41.5, y: 4.8, z: -3}
   m_LocalScale: {x: 6.7082644, y: 6.7082644, z: 6.7082644}
   m_Children: []
   m_Father: {fileID: 0}

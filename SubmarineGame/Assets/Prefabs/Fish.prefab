@@ -171,6 +171,8 @@ MonoBehaviour:
   whatsitshotspot: Hotspot
   eatnumber: 0
   isinwater: 0
+  minspeed: 1
+  maxspeed: 4
 --- !u!114 &7831788998351478319
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -211,6 +213,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isinwater: 0
+  waterlevel: -7
 --- !u!1 &9101486867933094333
 GameObject:
   m_ObjectHideFlags: 0

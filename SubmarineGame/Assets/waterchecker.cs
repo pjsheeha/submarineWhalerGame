@@ -5,6 +5,7 @@ using UnityEngine;
 public class waterchecker : MonoBehaviour
 {
     public bool isinwater;
+    public float waterlevel;
 
     void Start()
     {
@@ -14,7 +15,7 @@ public class waterchecker : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-    	if(this.transform.position.y >= -7)
+    	if(this.transform.position.y >= waterlevel)
     	{
     		this.GetComponent<Rigidbody2D>().gravityScale = 1;
         } else {

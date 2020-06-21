@@ -7,7 +7,8 @@ public class boatbehavior : MonoBehaviour
     public Transform target;
     public Transform movingObject;
 
-    public float range = 11f;
+    public float range = 15f;
+    public float shootingrange = 10f;
     public float fireRate = 1f;
     public float speed = 2;
     public bool retreat;
@@ -40,8 +41,13 @@ public class boatbehavior : MonoBehaviour
 
     	if (nearestEnemy != null && shortestDistance <= range)
     	{
+            Debug.Log("Chasing");
             armed = true;
     		target = nearestEnemy.transform;
+            if(shortestDistance <= shootingrange)
+            {
+                boatattack();
+            }
     	} else if (nearestEnemy == null || retreat == true){
             armed = false;
             nearestEnemy = null;
@@ -49,6 +55,10 @@ public class boatbehavior : MonoBehaviour
 
         }
 
+    }
+    void boatattack()
+    {
+        Debug.Log("Attacking");
     }
 
     void Update()

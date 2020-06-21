@@ -224,6 +224,8 @@ MonoBehaviour:
   whatsitshotspot: Plankton
   eatnumber: 0
   isinwater: 0
+  minspeed: 1
+  maxspeed: 4
 --- !u!114 &-7318868499648551057
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -250,3 +252,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isinwater: 0
+  waterlevel: -7

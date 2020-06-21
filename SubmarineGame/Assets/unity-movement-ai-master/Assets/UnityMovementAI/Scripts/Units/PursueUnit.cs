@@ -15,6 +15,8 @@ namespace UnityMovementAI
         public string whatsitshotspot;
         public float eatnumber;
         public bool isinwater;
+        public float minspeed;
+        public float maxspeed;
 
         SteeringBasics steeringBasics;
         Pursue pursue;
@@ -25,6 +27,7 @@ namespace UnityMovementAI
             pursue = GetComponent<Pursue>();
             //CHANGE
             InvokeRepeating("UpdateTarget", 0f, 0.5f);
+            this.GetComponent<SteeringBasics>().maxVelocity = Random.Range(minspeed, maxspeed);
         }
         //CHANGE
         void UpdateTarget()
