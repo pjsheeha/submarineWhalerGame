@@ -6,6 +6,7 @@ public class cruisemove : MonoBehaviour
 {
     // Start is called before the first frame update
     public float speed;
+    public int mult = 1;
     void Start()
     {
         speed = 0.95f;
@@ -14,7 +15,19 @@ public class cruisemove : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
     	Vector3 position = this.transform.position;
-        this.transform.position += -transform.right * speed * Time.deltaTime;
+        this.transform.position += -transform.right * speed * mult * Time.deltaTime;
+
+        if (transform.position.x < -60)
+        {
+            mult = -1;
+        }
+        else if (transform.position.x > 60)
+        {
+            mult = 1;
+
+
+        }
     }
 }
