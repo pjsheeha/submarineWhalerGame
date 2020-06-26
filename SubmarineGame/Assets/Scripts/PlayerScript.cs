@@ -426,4 +426,13 @@ public class PlayerScript : MonoBehaviour
         return plane_body.velocity.normalized;
     }
 
+    /*
+     * 0 - nothing interesting
+     * 1 - 
+     */
+    public int getPlayerActions()
+    {
+        return 0;
+    }
+
 }

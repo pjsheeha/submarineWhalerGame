@@ -8,7 +8,7 @@ using UnityMovementAI;
 using UnityEngine.UI;
 public class EcosystemManagement : MonoBehaviour
 {
-    int day = 0;
+    public int day = 0;
     public bool checkToEndDay = false;
     public bool checkToKillWhale = false;
     public bool checkToStartDay = false;
@@ -63,6 +63,7 @@ public class EcosystemManagement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        GaussianRandom.testGauss(30f, 0.2f);
 
         previousWhalePopulation = whalePopulation = maxWhalePopulation;
         previousFishPopulation = fishPopulation = maxFishPopulation;
@@ -483,6 +484,45 @@ public class EcosystemManagement : MonoBehaviour
                 feed--;
             }
         }
+    }
+
+    /*
+     * 0- no change
+     */
+    public int getPopulationChange()
+    {
+        return 0;
+    }
+
+    /*
+     * -1 - lower
+     * 0 - perfect
+     * 1 - higher
+     */
+
+    public int getPriceChecks()
+    {
+        return 1;
+    }
+
+    public int getGlobalWarmth()
+    {
+        return 0;
+    }
+
+    public int getCoralsState()
+    {
+        return -1;
+    }
+
+    public int getTourismState()
+    {
+        return 0;
+    }
+
+    public int getPublicOpinion()
+    {
+        return 0;
     }
 
 }
