@@ -148,7 +148,7 @@ public class newspaperManager : MonoBehaviour
 
     int calculateInterestingStories()
     {
-        if (titlesGUI.Length > possibleTitles.Count) return -1;
+        //if (titlesGUI.Length > possibleTitles.Count) return -1;
         
         int n = 0;
         for(int i = 0; i < possibleTitleScores.Count; i++)
